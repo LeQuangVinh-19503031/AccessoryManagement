@@ -41,6 +41,7 @@ import java.awt.event.MouseListener;
 import java.text.ParseException;
 import java.awt.event.ActionEvent;
 import java.awt.Component;
+import javax.swing.JSplitPane;
 
 public class JPanelNhaCungCap extends JPanel implements DocumentListener, MouseListener{
 	private JTextField textFieldTim;
@@ -61,6 +62,7 @@ public class JPanelNhaCungCap extends JPanel implements DocumentListener, MouseL
 	private JLabel lblMessMa, lblMessTen, lblMessEmail, lblMessSdt, lblMessDiaChi;
 	private JButton btnThem, btnCapNhat, btnXoa, btnXoaTrang;
 	private ModelListNhaCungCap model;
+	private JSplitPane splitPane;
 	/**
 	 * @wbp.nonvisual location=164,104
 	 */
@@ -83,11 +85,151 @@ public class JPanelNhaCungCap extends JPanel implements DocumentListener, MouseL
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		panelTitle.add(lblNewLabel);
 		
+		JPanel panelTable = new JPanel();
+		panelTable.setBackground(new Color(204, 255, 255));
+		panelTable.setAutoscrolls(true);
+		panelTable.setBorder(new TitledBorder(null, "DANH S\u00C1CH NH\u00C0 CUNG C\u1EA4P", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panelTable.setBounds(10, 63, 1265, 294);
+		add(panelTable);
+		panelTable.setLayout(null);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBackground(new Color(204, 255, 255));
+		scrollPane.setBounds(10, 21, 1245, 262);
+		scrollPane.setViewportBorder(new EmptyBorder(0, 0, 0, 0));
+		panelTable.add(scrollPane);
+		
+		table_1 = new JTable();
+		table_1.setBackground(new Color(255, 255, 255));
+		scrollPane.setViewportView(table_1);
+		table_1.setModel(modelTable);
+		table_1.addMouseListener(this);
+		
+		
+		JPanel panelThongTin = new JPanel();
+		panelThongTin.setBorder(new TitledBorder(null, "TH\u00D4NG TIN NH\u00C0 CUNG C\u1EA4P", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panelThongTin.setBackground(new Color(204, 255, 255));
+		panelThongTin.setBounds(10, 463, 1265, 232);
+		add(panelThongTin);
+		panelThongTin.setLayout(null);
+		
+		JLabel lblNewLabel_2 = new JLabel("Mã nhà cung cấp");
+		lblNewLabel_2.setAlignmentY(Component.TOP_ALIGNMENT);
+		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblNewLabel_2.setHorizontalAlignment(SwingConstants.LEFT);
+		lblNewLabel_2.setBounds(10, 52, 143, 32);
+		panelThongTin.add(lblNewLabel_2);
+		
+		JLabel lblNewLabel_2_1 = new JLabel("Tên nhà cung cấp");
+		lblNewLabel_2_1.setAlignmentY(Component.TOP_ALIGNMENT);
+		lblNewLabel_2_1.setHorizontalAlignment(SwingConstants.LEFT);
+		lblNewLabel_2_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblNewLabel_2_1.setBounds(559, 54, 143, 32);
+		panelThongTin.add(lblNewLabel_2_1);
+		
+		JLabel lblNewLabel_2_2 = new JLabel("Email");
+		lblNewLabel_2_2.setAlignmentY(Component.TOP_ALIGNMENT);
+		lblNewLabel_2_2.setHorizontalAlignment(SwingConstants.LEFT);
+		lblNewLabel_2_2.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblNewLabel_2_2.setBounds(10, 123, 143, 32);
+		panelThongTin.add(lblNewLabel_2_2);
+		
+		JLabel lblNewLabel_2_2_1 = new JLabel("Số điện thoại");
+		lblNewLabel_2_2_1.setAlignmentY(Component.TOP_ALIGNMENT);
+		lblNewLabel_2_2_1.setHorizontalAlignment(SwingConstants.LEFT);
+		lblNewLabel_2_2_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblNewLabel_2_2_1.setBounds(559, 119, 143, 32);
+		panelThongTin.add(lblNewLabel_2_2_1);
+		
+		JLabel lblNewLabel_2_2_2 = new JLabel("Địa chỉ");
+		lblNewLabel_2_2_2.setAlignmentY(Component.TOP_ALIGNMENT);
+		lblNewLabel_2_2_2.setHorizontalAlignment(SwingConstants.LEFT);
+		lblNewLabel_2_2_2.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblNewLabel_2_2_2.setBounds(10, 186, 143, 32);
+		panelThongTin.add(lblNewLabel_2_2_2);
+		
+		textFieldMa = new JTextField();
+		textFieldMa.setAlignmentY(Component.TOP_ALIGNMENT);
+		textFieldMa.setAlignmentX(Component.LEFT_ALIGNMENT);
+		textFieldMa.setBounds(163, 55, 386, 32);
+		panelThongTin.add(textFieldMa);
+		textFieldMa.setColumns(10);
+		
+		textFieldMa.getDocument().addDocumentListener(this);
+		
+		textFieldTen = new JTextField();
+		textFieldTen.setAlignmentY(Component.TOP_ALIGNMENT);
+		textFieldTen.setAlignmentX(Component.LEFT_ALIGNMENT);
+		textFieldTen.setColumns(10);
+		textFieldTen.setBounds(712, 55, 386, 32);
+		panelThongTin.add(textFieldTen);
+		
+		textFieldTen.getDocument().addDocumentListener(this);
+		
+		textFieldEmail = new JTextField();
+		textFieldEmail.setAlignmentY(Component.TOP_ALIGNMENT);
+		textFieldEmail.setAlignmentX(Component.LEFT_ALIGNMENT);
+		textFieldEmail.setColumns(10);
+		textFieldEmail.setBounds(163, 123, 386, 32);
+		panelThongTin.add(textFieldEmail);
+		
+		textFieldEmail.getDocument().addDocumentListener(this);
+		
+		textFieldSdt = new JTextField();
+		textFieldSdt.setAlignmentY(Component.TOP_ALIGNMENT);
+		textFieldSdt.setAlignmentX(Component.LEFT_ALIGNMENT);
+		textFieldSdt.setColumns(10);
+		textFieldSdt.setBounds(712, 122, 386, 32);
+		panelThongTin.add(textFieldSdt);
+		
+		textFieldSdt.getDocument().addDocumentListener(this);
+		
+		textFieldDiaChi = new JTextField();
+		textFieldDiaChi.setAlignmentY(Component.TOP_ALIGNMENT);
+		textFieldDiaChi.setAlignmentX(Component.LEFT_ALIGNMENT);
+		textFieldDiaChi.setColumns(10);
+		textFieldDiaChi.setBounds(163, 189, 386, 32);
+		panelThongTin.add(textFieldDiaChi);
+		
+		lblMessDiaChi = new JLabel("");
+		lblMessDiaChi.setBounds(163, 158, 386, 32);
+		panelThongTin.add(lblMessDiaChi);
+		lblMessDiaChi.setForeground(new Color(255, 0, 0));
+		
+		lblMessSdt = new JLabel("");
+		lblMessSdt.setBounds(712, 90, 386, 32);
+		panelThongTin.add(lblMessSdt);
+		lblMessSdt.setForeground(new Color(255, 0, 0));
+		
+		lblMessEmail = new JLabel("");
+		lblMessEmail.setBounds(163, 92, 386, 32);
+		panelThongTin.add(lblMessEmail);
+		lblMessEmail.setForeground(new Color(255, 0, 0));
+		
+		lblMessTen = new JLabel("");
+		lblMessTen.setBounds(712, 23, 386, 32);
+		panelThongTin.add(lblMessTen);
+		lblMessTen.setForeground(new Color(255, 0, 0));
+		
+		lblMessMa = new JLabel("");
+		lblMessMa.setBounds(163, 23, 386, 32);
+		panelThongTin.add(lblMessMa);
+		lblMessMa.setForeground(new Color(255, 0, 0));
+		
+		textFieldDiaChi.getDocument().addDocumentListener(this);
+		
+		splitPane = new JSplitPane();
+		splitPane.setBorder(null);
+		splitPane.setResizeWeight(0.5);
+		splitPane.setAlignmentY(Component.CENTER_ALIGNMENT);
+		splitPane.setAlignmentX(Component.CENTER_ALIGNMENT);
+		splitPane.setBounds(10, 367, 1265, 88);
+		add(splitPane);
+		
 		JPanel panelChucNang = new JPanel();
+		splitPane.setLeftComponent(panelChucNang);
 		panelChucNang.setBorder(new TitledBorder(null, "CH\u1EE8C N\u0102NG", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		panelChucNang.setBackground(new Color(204, 255, 255));
-		panelChucNang.setBounds(94, 367, 588, 78);
-		add(panelChucNang);
 		panelChucNang.setLayout(null);
 		
 		btnThem = new JButton("THÊM");
@@ -125,151 +267,10 @@ public class JPanelNhaCungCap extends JPanel implements DocumentListener, MouseL
 		btnXoaTrang.setBounds(442, 22, 134, 42);
 		panelChucNang.add(btnXoaTrang);
 		
-		JPanel panelTable = new JPanel();
-		panelTable.setBackground(new Color(204, 255, 255));
-		panelTable.setAutoscrolls(true);
-		panelTable.setBorder(new TitledBorder(null, "DANH S\u00C1CH NH\u00C0 CUNG C\u1EA4P", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panelTable.setBounds(10, 63, 1265, 294);
-		add(panelTable);
-		panelTable.setLayout(null);
-		
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBackground(new Color(204, 255, 255));
-		scrollPane.setBounds(10, 21, 1245, 262);
-		scrollPane.setViewportBorder(new EmptyBorder(0, 0, 0, 0));
-		panelTable.add(scrollPane);
-		
-		table_1 = new JTable();
-		table_1.setBackground(new Color(255, 255, 255));
-		scrollPane.setViewportView(table_1);
-		table_1.setModel(modelTable);
-		table_1.addMouseListener(this);
-		
-		
-		JPanel panelThongTin = new JPanel();
-		panelThongTin.setBorder(new TitledBorder(null, "TH\u00D4NG TIN NH\u00C0 CUNG C\u1EA4P", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panelThongTin.setBackground(new Color(204, 255, 255));
-		panelThongTin.setBounds(94, 455, 1004, 242);
-		add(panelThongTin);
-		panelThongTin.setLayout(null);
-		
-		JLabel lblNewLabel_2 = new JLabel("Mã nhà cung cấp");
-		lblNewLabel_2.setAlignmentY(Component.TOP_ALIGNMENT);
-		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblNewLabel_2.setHorizontalAlignment(SwingConstants.LEFT);
-		lblNewLabel_2.setBounds(30, 23, 143, 32);
-		panelThongTin.add(lblNewLabel_2);
-		
-		JLabel lblNewLabel_2_1 = new JLabel("Tên nhà cung cấp");
-		lblNewLabel_2_1.setAlignmentY(Component.TOP_ALIGNMENT);
-		lblNewLabel_2_1.setHorizontalAlignment(SwingConstants.LEFT);
-		lblNewLabel_2_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblNewLabel_2_1.setBounds(30, 68, 143, 32);
-		panelThongTin.add(lblNewLabel_2_1);
-		
-		JLabel lblNewLabel_2_2 = new JLabel("Email");
-		lblNewLabel_2_2.setAlignmentY(Component.TOP_ALIGNMENT);
-		lblNewLabel_2_2.setHorizontalAlignment(SwingConstants.LEFT);
-		lblNewLabel_2_2.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblNewLabel_2_2.setBounds(30, 113, 143, 32);
-		panelThongTin.add(lblNewLabel_2_2);
-		
-		JLabel lblNewLabel_2_2_1 = new JLabel("Số điện thoại");
-		lblNewLabel_2_2_1.setAlignmentY(Component.TOP_ALIGNMENT);
-		lblNewLabel_2_2_1.setHorizontalAlignment(SwingConstants.LEFT);
-		lblNewLabel_2_2_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblNewLabel_2_2_1.setBounds(30, 155, 143, 32);
-		panelThongTin.add(lblNewLabel_2_2_1);
-		
-		JLabel lblNewLabel_2_2_2 = new JLabel("Địa chỉ");
-		lblNewLabel_2_2_2.setAlignmentY(Component.TOP_ALIGNMENT);
-		lblNewLabel_2_2_2.setHorizontalAlignment(SwingConstants.LEFT);
-		lblNewLabel_2_2_2.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblNewLabel_2_2_2.setBounds(30, 197, 143, 32);
-		panelThongTin.add(lblNewLabel_2_2_2);
-		
-		textFieldMa = new JTextField();
-		textFieldMa.setAlignmentY(Component.TOP_ALIGNMENT);
-		textFieldMa.setAlignmentX(Component.LEFT_ALIGNMENT);
-		textFieldMa.setBounds(183, 23, 386, 32);
-		panelThongTin.add(textFieldMa);
-		textFieldMa.setColumns(10);
-		
-		textFieldMa.getDocument().addDocumentListener(this);
-		
-		textFieldTen = new JTextField();
-		textFieldTen.setAlignmentY(Component.TOP_ALIGNMENT);
-		textFieldTen.setAlignmentX(Component.LEFT_ALIGNMENT);
-		textFieldTen.setColumns(10);
-		textFieldTen.setBounds(183, 68, 386, 32);
-		panelThongTin.add(textFieldTen);
-		
-		textFieldTen.getDocument().addDocumentListener(this);
-		
-		textFieldEmail = new JTextField();
-		textFieldEmail.setAlignmentY(Component.TOP_ALIGNMENT);
-		textFieldEmail.setAlignmentX(Component.LEFT_ALIGNMENT);
-		textFieldEmail.setColumns(10);
-		textFieldEmail.setBounds(183, 113, 386, 32);
-		panelThongTin.add(textFieldEmail);
-		
-		textFieldEmail.getDocument().addDocumentListener(this);
-		
-		textFieldSdt = new JTextField();
-		textFieldSdt.setAlignmentY(Component.TOP_ALIGNMENT);
-		textFieldSdt.setAlignmentX(Component.LEFT_ALIGNMENT);
-		textFieldSdt.setColumns(10);
-		textFieldSdt.setBounds(183, 158, 386, 32);
-		panelThongTin.add(textFieldSdt);
-		
-		textFieldSdt.getDocument().addDocumentListener(this);
-		
-		textFieldDiaChi = new JTextField();
-		textFieldDiaChi.setAlignmentY(Component.TOP_ALIGNMENT);
-		textFieldDiaChi.setAlignmentX(Component.LEFT_ALIGNMENT);
-		textFieldDiaChi.setColumns(10);
-		textFieldDiaChi.setBounds(183, 200, 386, 32);
-		panelThongTin.add(textFieldDiaChi);
-		
-		textFieldDiaChi.getDocument().addDocumentListener(this);
-		
-		JPanel panel = new JPanel();
-		panel.setLayout(null);
-		panel.setBorder(new TitledBorder(null, "KI\u1EC2M TRA L\u1ED6I", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panel.setBackground(new Color(204, 255, 255));
-		panel.setBounds(600, 0, 404, 242);
-		panelThongTin.add(panel);
-		
-		lblMessMa = new JLabel("");
-		lblMessMa.setForeground(new Color(255, 0, 0));
-		lblMessMa.setBounds(20, 23, 361, 32);
-		panel.add(lblMessMa);
-		
-		lblMessTen = new JLabel("");
-		lblMessTen.setForeground(new Color(255, 0, 0));
-		lblMessTen.setBounds(20, 68, 361, 32);
-		panel.add(lblMessTen);
-		
-		lblMessEmail = new JLabel("");
-		lblMessEmail.setForeground(new Color(255, 0, 0));
-		lblMessEmail.setBounds(20, 113, 361, 32);
-		panel.add(lblMessEmail);
-		
-		lblMessSdt = new JLabel("");
-		lblMessSdt.setForeground(new Color(255, 0, 0));
-		lblMessSdt.setBounds(20, 158, 361, 32);
-		panel.add(lblMessSdt);
-		
-		lblMessDiaChi = new JLabel("");
-		lblMessDiaChi.setForeground(new Color(255, 0, 0));
-		lblMessDiaChi.setBounds(20, 200, 361, 32);
-		panel.add(lblMessDiaChi);
-		
 		JPanel panelChucNangNhanh = new JPanel();
+		splitPane.setRightComponent(panelChucNangNhanh);
 		panelChucNangNhanh.setBackground(new Color(204, 255, 255));
 		panelChucNangNhanh.setBorder(new TitledBorder(null, "CH\u1EE8C N\u0102NG NHANH", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panelChucNangNhanh.setBounds(692, 367, 406, 78);
-		add(panelChucNangNhanh);
 		panelChucNangNhanh.setLayout(null);
 		
 		JLabel lblNewLabel_1 = new JLabel("TÌM KIẾM MÃ");
@@ -278,7 +279,7 @@ public class JPanelNhaCungCap extends JPanel implements DocumentListener, MouseL
 		panelChucNangNhanh.add(lblNewLabel_1);
 		
 		textFieldTim = new JTextField();
-		textFieldTim.setBounds(138, 27, 226, 38);
+		textFieldTim.setBounds(138, 30, 461, 32);
 		panelChucNangNhanh.add(textFieldTim);
 		textFieldTim.setColumns(10);
 		

@@ -87,9 +87,9 @@ public class JPanelHoaDon extends JPanel implements DocumentListener, MouseListe
 		panelTitle.setLayout(new BorderLayout(0, 0));
 		
 		JLabel lblNewLabel = new JLabel("ĐƠN HÀNG");
-		lblNewLabel.setFont(new Font("Consolas", Font.BOLD, 24));
+		lblNewLabel.setFont(new Font("Consolas", Font.BOLD, 32));
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		panelTitle.add(lblNewLabel);
+		panelTitle.add(lblNewLabel, BorderLayout.SOUTH);
 		
 		JPanel panelChucNang = new JPanel();
 		panelChucNang.setBorder(new TitledBorder(null, "CH\u1EE8C N\u0102NG", TitledBorder.LEADING, TitledBorder.TOP, null, null));
@@ -136,7 +136,7 @@ public class JPanelHoaDon extends JPanel implements DocumentListener, MouseListe
 		JPanel panelTable = new JPanel();
 		panelTable.setBackground(new Color(204, 255, 255));
 		panelTable.setAutoscrolls(true);
-		panelTable.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "DANH S\u00C1CH H\u00D3A \u0110\u01A0N", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		panelTable.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "DANH S\u00C1CH \u0110\u01A0N H\u00C0NG", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		panelTable.setBounds(10, 63, 1006, 294);
 		add(panelTable);
 		panelTable.setLayout(null);
@@ -155,9 +155,9 @@ public class JPanelHoaDon extends JPanel implements DocumentListener, MouseListe
 		
 		
 		JPanel panelThongTin = new JPanel();
-		panelThongTin.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "TH\u00D4NG TIN H\u00D3A \u0110\u01A0N", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		panelThongTin.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "TH\u00D4NG TIN \u0110\u01A0N H\u00C0NG", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		panelThongTin.setBackground(new Color(204, 255, 255));
-		panelThongTin.setBounds(10, 455, 1006, 242);
+		panelThongTin.setBounds(10, 455, 1006, 247);
 		add(panelThongTin);
 		panelThongTin.setLayout(null);
 		
@@ -165,28 +165,28 @@ public class JPanelHoaDon extends JPanel implements DocumentListener, MouseListe
 		lblNewLabel_2.setAlignmentY(Component.TOP_ALIGNMENT);
 		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		lblNewLabel_2.setHorizontalAlignment(SwingConstants.LEFT);
-		lblNewLabel_2.setBounds(30, 23, 143, 32);
+		lblNewLabel_2.setBounds(30, 54, 153, 32);
 		panelThongTin.add(lblNewLabel_2);
 		
 		JLabel lblNewLabel_2_1 = new JLabel("Mã khách hàng");
 		lblNewLabel_2_1.setAlignmentY(Component.TOP_ALIGNMENT);
 		lblNewLabel_2_1.setHorizontalAlignment(SwingConstants.LEFT);
 		lblNewLabel_2_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblNewLabel_2_1.setBounds(30, 68, 143, 32);
+		lblNewLabel_2_1.setBounds(511, 54, 153, 32);
 		panelThongTin.add(lblNewLabel_2_1);
 		
 		JLabel lblNewLabel_2_2 = new JLabel("Mã nhân viên");
 		lblNewLabel_2_2.setAlignmentY(Component.TOP_ALIGNMENT);
 		lblNewLabel_2_2.setHorizontalAlignment(SwingConstants.LEFT);
 		lblNewLabel_2_2.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblNewLabel_2_2.setBounds(30, 113, 143, 32);
+		lblNewLabel_2_2.setBounds(30, 127, 153, 32);
 		panelThongTin.add(lblNewLabel_2_2);
 		
 		JLabel lblNewLabel_2_2_1 = new JLabel("Ngày giao hàng");
 		lblNewLabel_2_2_1.setAlignmentY(Component.TOP_ALIGNMENT);
 		lblNewLabel_2_2_1.setHorizontalAlignment(SwingConstants.LEFT);
 		lblNewLabel_2_2_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblNewLabel_2_2_1.setBounds(30, 155, 143, 32);
+		lblNewLabel_2_2_1.setBounds(511, 127, 153, 32);
 		panelThongTin.add(lblNewLabel_2_2_1);
 		
 		JLabel lblNewLabel_2_2_2 = new JLabel("Địa chỉ giao hàng");
@@ -199,7 +199,7 @@ public class JPanelHoaDon extends JPanel implements DocumentListener, MouseListe
 		textFieldMaHD = new JTextField();
 		textFieldMaHD.setAlignmentY(Component.TOP_ALIGNMENT);
 		textFieldMaHD.setAlignmentX(Component.LEFT_ALIGNMENT);
-		textFieldMaHD.setBounds(183, 23, 386, 32);
+		textFieldMaHD.setBounds(183, 54, 304, 32);
 		panelThongTin.add(textFieldMaHD);
 		textFieldMaHD.setColumns(10);
 		
@@ -209,7 +209,7 @@ public class JPanelHoaDon extends JPanel implements DocumentListener, MouseListe
 		textFieldMaKhachHang.setAlignmentY(Component.TOP_ALIGNMENT);
 		textFieldMaKhachHang.setAlignmentX(Component.LEFT_ALIGNMENT);
 		textFieldMaKhachHang.setColumns(10);
-		textFieldMaKhachHang.setBounds(183, 68, 386, 32);
+		textFieldMaKhachHang.setBounds(664, 54, 304, 32);
 		panelThongTin.add(textFieldMaKhachHang);
 		
 		textFieldMaKhachHang.getDocument().addDocumentListener(this);
@@ -218,7 +218,7 @@ public class JPanelHoaDon extends JPanel implements DocumentListener, MouseListe
 		textFieldMaNhanVien.setAlignmentY(Component.TOP_ALIGNMENT);
 		textFieldMaNhanVien.setAlignmentX(Component.LEFT_ALIGNMENT);
 		textFieldMaNhanVien.setColumns(10);
-		textFieldMaNhanVien.setBounds(183, 113, 386, 32);
+		textFieldMaNhanVien.setBounds(183, 127, 304, 32);
 		panelThongTin.add(textFieldMaNhanVien);
 		
 		textFieldMaNhanVien.getDocument().addDocumentListener(this);
@@ -227,7 +227,7 @@ public class JPanelHoaDon extends JPanel implements DocumentListener, MouseListe
 		textFieldNgayGiao.setAlignmentY(Component.TOP_ALIGNMENT);
 		textFieldNgayGiao.setAlignmentX(Component.LEFT_ALIGNMENT);
 		textFieldNgayGiao.setColumns(10);
-		textFieldNgayGiao.setBounds(183, 158, 386, 32);
+		textFieldNgayGiao.setBounds(664, 127, 304, 32);
 		panelThongTin.add(textFieldNgayGiao);
 		
 		textFieldNgayGiao.getDocument().addDocumentListener(this);
@@ -236,42 +236,35 @@ public class JPanelHoaDon extends JPanel implements DocumentListener, MouseListe
 		textFieldDiaChiGiaoHang.setAlignmentY(Component.TOP_ALIGNMENT);
 		textFieldDiaChiGiaoHang.setAlignmentX(Component.LEFT_ALIGNMENT);
 		textFieldDiaChiGiaoHang.setColumns(10);
-		textFieldDiaChiGiaoHang.setBounds(183, 200, 386, 32);
+		textFieldDiaChiGiaoHang.setBounds(183, 200, 304, 32);
 		panelThongTin.add(textFieldDiaChiGiaoHang);
 		
-		textFieldDiaChiGiaoHang.getDocument().addDocumentListener(this);
-		
-		JPanel panel = new JPanel();
-		panel.setLayout(null);
-		panel.setBorder(new TitledBorder(null, "KI\u1EC2M TRA L\u1ED6I", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panel.setBackground(new Color(204, 255, 255));
-		panel.setBounds(600, 0, 406, 242);
-		panelThongTin.add(panel);
-		
-		lblMessMaHD = new JLabel("");
-		lblMessMaHD.setForeground(new Color(255, 0, 0));
-		lblMessMaHD.setBounds(20, 23, 361, 32);
-		panel.add(lblMessMaHD);
-		
-		lblMessMaKhachHang = new JLabel("");
-		lblMessMaKhachHang.setForeground(new Color(255, 0, 0));
-		lblMessMaKhachHang.setBounds(20, 68, 361, 32);
-		panel.add(lblMessMaKhachHang);
-		
-		lblMessMaNhanVien = new JLabel("");
-		lblMessMaNhanVien.setForeground(new Color(255, 0, 0));
-		lblMessMaNhanVien.setBounds(20, 116, 361, 32);
-		panel.add(lblMessMaNhanVien);
+		lblMessDiaChiGiaoHang = new JLabel("");
+		lblMessDiaChiGiaoHang.setBounds(183, 169, 304, 32);
+		panelThongTin.add(lblMessDiaChiGiaoHang);
+		lblMessDiaChiGiaoHang.setForeground(new Color(255, 0, 0));
 		
 		lblMessNgayGiao = new JLabel("");
+		lblMessNgayGiao.setBounds(664, 96, 304, 32);
+		panelThongTin.add(lblMessNgayGiao);
 		lblMessNgayGiao.setForeground(new Color(255, 0, 0));
-		lblMessNgayGiao.setBounds(20, 158, 361, 32);
-		panel.add(lblMessNgayGiao);
 		
-		lblMessDiaChiGiaoHang = new JLabel("");
-		lblMessDiaChiGiaoHang.setForeground(new Color(255, 0, 0));
-		lblMessDiaChiGiaoHang.setBounds(20, 200, 361, 32);
-		panel.add(lblMessDiaChiGiaoHang);
+		lblMessMaNhanVien = new JLabel("");
+		lblMessMaNhanVien.setBounds(183, 96, 304, 32);
+		panelThongTin.add(lblMessMaNhanVien);
+		lblMessMaNhanVien.setForeground(new Color(255, 0, 0));
+		
+		lblMessMaKhachHang = new JLabel("");
+		lblMessMaKhachHang.setBounds(664, 23, 304, 32);
+		panelThongTin.add(lblMessMaKhachHang);
+		lblMessMaKhachHang.setForeground(new Color(255, 0, 0));
+		
+		lblMessMaHD = new JLabel("");
+		lblMessMaHD.setBounds(183, 23, 304, 32);
+		panelThongTin.add(lblMessMaHD);
+		lblMessMaHD.setForeground(new Color(255, 0, 0));
+		
+		textFieldDiaChiGiaoHang.getDocument().addDocumentListener(this);
 		
 		JPanel panelChucNangNhanh = new JPanel();
 		panelChucNangNhanh.setBackground(new Color(204, 255, 255));
@@ -281,12 +274,12 @@ public class JPanelHoaDon extends JPanel implements DocumentListener, MouseListe
 		panelChucNangNhanh.setLayout(null);
 		
 		JLabel lblNewLabel_1 = new JLabel("TÌM KIẾM MÃ");
-		lblNewLabel_1.setBounds(10, 26, 118, 38);
+		lblNewLabel_1.setBounds(10, 26, 129, 32);
 		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
 		panelChucNangNhanh.add(lblNewLabel_1);
 		
 		textFieldTim = new JTextField();
-		textFieldTim.setBounds(138, 27, 226, 38);
+		textFieldTim.setBounds(138, 26, 244, 32);
 		panelChucNangNhanh.add(textFieldTim);
 		textFieldTim.setColumns(10);
 		
@@ -352,7 +345,7 @@ public class JPanelHoaDon extends JPanel implements DocumentListener, MouseListe
 		JPanel panelNhanVien = new JPanel();
 		panelNhanVien.setBackground(new Color(204, 255, 255));
 		panelNhanVien.setBorder(new TitledBorder(null, "TH\u00D4NG TIN NH\u00C2N VI\u00CAN", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panelNhanVien.setBounds(1026, 367, 250, 330);
+		panelNhanVien.setBounds(1026, 367, 250, 335);
 		add(panelNhanVien);
 		panelNhanVien.setLayout(null);
 		

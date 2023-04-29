@@ -32,7 +32,7 @@ public class WindowMain {
 
 	public JFrame frmQunLMua;
 	private JPanel panelContent;
-	private JPanel panelNhaCungCap, panelLinhKien, panelTrangChu, panelLoaiLinhKien, panelHoaDon, panelNhanVien, panelPhongBan, panelHoaDonChiTiet, panelTaiKhoan, panelKhachHang;
+	private JPanel panelNhaCungCap, panelThongKe, panelLinhKien, panelTrangChu, panelLoaiLinhKien, panelHoaDon, panelNhanVien, panelPhongBan, panelHoaDonChiTiet, panelTaiKhoan, panelKhachHang;
 	
 	int width = 250, height = 773;
 	/**
@@ -118,7 +118,7 @@ public class WindowMain {
 		panelMenuItem.setBackground(Color.GRAY);
 		panelMenuItem.setBounds(0, 158, 250, 539);
 		panelMenu.add(panelMenuItem);
-		panelMenuItem.setLayout(new GridLayout(10, 0, 10, 10));
+		panelMenuItem.setLayout(new GridLayout(11, 0, 10, 10));
 		
 		JButton btnTrangChu = new JButton("TRANG CHỦ");
 		btnTrangChu.addActionListener(new ActionListener() {
@@ -226,6 +226,17 @@ public class WindowMain {
 				System.exit(1);
 			}
 		});
+		
+		JButton btnThongKe = new JButton("THỐNG KÊ");
+		btnThongKe.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				CardLayout c = (CardLayout) (panelContent.getLayout());
+				panelMenu.setSize(0, height);
+				c.show(panelContent, "panelThongKe");
+				frmQunLMua.setVisible(true); 
+			}
+		});
+		panelMenuItem.add(btnThongKe);
 		panelMenuItem.add(btnDangXuat);
 		
 		JPanel panelUser = new JPanel();
@@ -320,6 +331,7 @@ public class WindowMain {
 				panelLoaiLinhKien.setVisible(false);
 				panelHoaDonChiTiet.setVisible(false);
 				panelPhongBan.setVisible(false);
+				panelThongKe.setVisible(false);
 			}
 
 			private void openMenu() {
@@ -327,7 +339,7 @@ public class WindowMain {
 					// 250, 773
 					@Override
 					public void run() {
-						for (int i = 0; i <= width; i+=20) {
+						for (int i = 0; i <= width; i+=10) {
 							panelMenu.setSize(i, height);
 							try {
 								Thread.sleep(1);
@@ -357,18 +369,10 @@ public class WindowMain {
 		panelContent.setLayout(new CardLayout(0, 0));
 		
 		panelTrangChu = new JPanelTrangChu();
-		panelTrangChu.setBackground(new Color(204, 255, 255));
 		panelContent.add(panelTrangChu, "panelTrangChu");
 		panelTrangChu.setLayout(null);
 		
-		JPanel panel = new JPanel();
-		panel.setBackground(new Color(204, 204, 255));
-		panel.setBounds(0, 0, 1286, 53);
-		panelTrangChu.add(panel);
-		panel.setLayout(null);
-		
 		panelLinhKien = new JPanelLinhKien();
-		panelLinhKien.setBackground(new Color(204, 204, 255));
 		panelContent.add(panelLinhKien, "panelLinhKien");
 		
 		panelNhaCungCap = new JPanelNhaCungCap();
@@ -400,15 +404,16 @@ public class WindowMain {
 		panelTaiKhoan.setLayout(null);
 		
 		panelLinhKien = new JPanelLinhKien();
-		panelLinhKien.setBackground(new Color(204, 204, 255));
 		panelContent.add(panelLinhKien, "panelLinhKien");
 		panelLinhKien.setLayout(null);
 			
 		panelKhachHang = new JPanelKhachHang();
-		panelKhachHang.setBackground(new Color(204, 204, 255));
 		panelContent.add(panelKhachHang, "panelKhachHang");
 		panelKhachHang.setLayout(null);
+		
+		panelThongKe = new JPanelThongKe();
+		panelContent.add(panelThongKe, "panelThongKe");
+		panelThongKe.setLayout(null);
 	
 	}
-	
 }
