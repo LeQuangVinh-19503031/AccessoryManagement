@@ -32,13 +32,33 @@ public class PhongBan_DAO {
 		return list;
 	}
 	
+	public static ArrayList<String> getAllIDDepartmentFromDB(){
+		ArrayList<String> list = new ArrayList<String>();
+		ConnectDB.getConDB();
+		Connection con = ConnectDB.getCon();
+		
+		try {
+			String sql = "select MaPB from PhongBan";
+			Statement statement = con.createStatement();
+			ResultSet resultSet = statement.executeQuery(sql);
+			while(resultSet.next()) {
+				list.add(resultSet.getString(1));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return list;
+	}
+	
 	public static void main(String[] args) {
 		ConnectDB conDB = new ConnectDB();
 		conDB.connect();
-		ArrayList<PhongBan> list = PhongBan_DAO.getAllFromDB();
-		for (PhongBan phongBan : list) {
-			System.out.println(phongBan);
-		}
+		ArrayList<String> list = PhongBan_DAO.getAllIDDepartmentFromDB();
 		conDB.disconect();
+	
+		for (String string : list) {
+			System.out.println(string);
+		}
 	}
 }

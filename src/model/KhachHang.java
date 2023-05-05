@@ -3,35 +3,35 @@ package model;
 import java.util.Objects;
 
 public class KhachHang {
-	private String ma;
-	private String ten;
-	private String diaChi;
-	private String sdt;
+	private String maKH;
+	private String tenKH;
+	private String diaChiKH;
+	private String sdtKH;
 	private String email;
 
 	public String getMa() {
-		return ma;
+		return maKH;
 	}
 	public void setMa(String ma) {
-		this.ma = ma;
+		this.maKH = ma;
 	}
 	public String getTen() {
-		return ten;
+		return tenKH;
 	}
 	public void setTen(String ten) {
-		this.ten = ten;
+		this.tenKH = ten;
 	}
 	public String getDiaChi() {
-		return diaChi;
+		return diaChiKH;
 	}
 	public void setDiaChi(String diaChi) {
-		this.diaChi = diaChi;
+		this.diaChiKH = diaChi;
 	}
 	public String getSdt() {
-		return sdt;
+		return sdtKH;
 	}
 	public void setSdt(String sdt) {
-		this.sdt = sdt;
+		this.sdtKH = sdt;
 	}
 	
 	public String getEmail() {
@@ -43,7 +43,7 @@ public class KhachHang {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(diaChi, email, ma, sdt, ten);
+		return Objects.hash(diaChiKH, email, maKH, sdtKH, tenKH);
 	}
 	@Override
 	public boolean equals(Object obj) {
@@ -54,21 +54,21 @@ public class KhachHang {
 		if (getClass() != obj.getClass())
 			return false;
 		KhachHang other = (KhachHang) obj;
-		return Objects.equals(diaChi, other.diaChi) && Objects.equals(email, other.email)
-				&& Objects.equals(ma, other.ma) && Objects.equals(sdt, other.sdt) && Objects.equals(ten, other.ten);
+		return Objects.equals(diaChiKH, other.diaChiKH) && Objects.equals(email, other.email)
+				&& Objects.equals(maKH, other.maKH) && Objects.equals(sdtKH, other.sdtKH) && Objects.equals(tenKH, other.tenKH);
 	}
 	
 	@Override
 	public String toString() {
-		return "KhachHang [ma=" + ma + ", ten=" + ten + ", diaChi=" + diaChi + ", sdt=" + sdt + ", email=" + email
+		return "KhachHang [ma=" + maKH + ", ten=" + tenKH + ", diaChi=" + diaChiKH + ", sdt=" + sdtKH + ", email=" + email
 				+ "]";
 	}
 
 	public KhachHang(String ma, String ten, String diaChi, String sdt, String email) {
-		this.ma = ma;
-		this.ten = ten;
-		this.diaChi = diaChi;
-		this.sdt = sdt;
+		this.maKH = ma;
+		this.tenKH = ten;
+		this.diaChiKH = diaChi;
+		this.sdtKH = sdt;
 		this.email = email;
 	}
 	public KhachHang() {

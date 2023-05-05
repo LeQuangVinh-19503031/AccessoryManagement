@@ -1,6 +1,6 @@
 package model;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.Objects;
 
 public class NhanVien {
@@ -11,7 +11,7 @@ public class NhanVien {
 	private Date ngayVaoLam;
 	private Date ngaySinh;
 	private String gioiTinh;
-	private String diaChi;
+	private int luongCB;
 	private String dienThoai;
 	private String email;
 	private String cccd;
@@ -22,7 +22,7 @@ public class NhanVien {
 	}
 
 	public NhanVien(String ma, String ten, String maPB, String maQL, Date ngayVaoLam, Date ngaySinh, String gioiTinh,
-			String diaChi, String dienThoai, String email, String cccd, String user, String pass) {
+			int luongCB, String dienThoai, String email, String cccd, String user, String pass) {
 		this.ma = ma;
 		this.ten = ten;
 		this.maPB = maPB;
@@ -30,36 +30,12 @@ public class NhanVien {
 		this.ngayVaoLam = ngayVaoLam;
 		this.ngaySinh = ngaySinh;
 		this.gioiTinh = gioiTinh;
-		this.diaChi = diaChi;
+		this.luongCB = luongCB;
 		this.dienThoai = dienThoai;
 		this.email = email;
 		this.cccd = cccd;
 		this.user = user;
 		this.pass = pass;
-	}
-
-	@Override
-	public int hashCode() {
-		return Objects.hash(cccd, diaChi, dienThoai, email, gioiTinh, ma, maPB, maQL, ngaySinh, ngayVaoLam, pass, ten,
-				user);
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		NhanVien other = (NhanVien) obj;
-		return Objects.equals(cccd, other.cccd) && Objects.equals(diaChi, other.diaChi)
-				&& Objects.equals(dienThoai, other.dienThoai) && Objects.equals(email, other.email)
-				&& Objects.equals(gioiTinh, other.gioiTinh) && Objects.equals(ma, other.ma)
-				&& Objects.equals(maPB, other.maPB) && Objects.equals(maQL, other.maQL)
-				&& Objects.equals(ngaySinh, other.ngaySinh) && Objects.equals(ngayVaoLam, other.ngayVaoLam)
-				&& Objects.equals(pass, other.pass) && Objects.equals(ten, other.ten)
-				&& Objects.equals(user, other.user);
 	}
 
 	public String getMa() {
@@ -118,12 +94,12 @@ public class NhanVien {
 		this.gioiTinh = gioiTinh;
 	}
 
-	public String getDiaChi() {
-		return diaChi;
+	public int getLuongCB() {
+		return luongCB;
 	}
 
-	public void setDiaChi(String diaChi) {
-		this.diaChi = diaChi;
+	public void setLuongCB(int luongCB) {
+		this.luongCB = luongCB;
 	}
 
 	public String getDienThoai() {
@@ -167,14 +143,36 @@ public class NhanVien {
 	}
 
 	@Override
+	public int hashCode() {
+		return Objects.hash(cccd, dienThoai, email, gioiTinh, luongCB, ma, maPB, maQL, ngaySinh, ngayVaoLam, pass, ten,
+				user);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		NhanVien other = (NhanVien) obj;
+		return Objects.equals(cccd, other.cccd) && Objects.equals(dienThoai, other.dienThoai)
+				&& Objects.equals(email, other.email) && Objects.equals(gioiTinh, other.gioiTinh)
+				&& luongCB == other.luongCB && Objects.equals(ma, other.ma) && Objects.equals(maPB, other.maPB)
+				&& Objects.equals(maQL, other.maQL) && Objects.equals(ngaySinh, other.ngaySinh)
+				&& Objects.equals(ngayVaoLam, other.ngayVaoLam) && Objects.equals(pass, other.pass)
+				&& Objects.equals(ten, other.ten) && Objects.equals(user, other.user);
+	}
+
+	@Override
 	public String toString() {
 		return "NhanVien [ma=" + ma + ", ten=" + ten + ", maPB=" + maPB + ", maQL=" + maQL + ", ngayVaoLam="
-				+ ngayVaoLam + ", ngaySinh=" + ngaySinh + ", gioiTinh=" + gioiTinh + ", diaChi=" + diaChi
+				+ ngayVaoLam + ", ngaySinh=" + ngaySinh + ", gioiTinh=" + gioiTinh + ", luongCB=" + luongCB
 				+ ", dienThoai=" + dienThoai + ", email=" + email + ", cccd=" + cccd + ", user=" + user + ", pass="
 				+ pass + "]";
 	}
 
 	
-
 	
 }

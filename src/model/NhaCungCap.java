@@ -3,22 +3,22 @@ package model;
 import java.util.Objects;
 
 public class NhaCungCap {
-	private String ma;
-	private String ten;
+	private String maNCC;
+	private String tenNCC;
 	private String diaChi;
 	private String sdt;
 	private String email;
 	public String getMa() {
-		return ma;
+		return maNCC;
 	}
 	public void setMa(String ma) {
-		this.ma = ma;
+		this.maNCC = ma;
 	}
 	public String getTen() {
-		return ten;
+		return tenNCC;
 	}
 	public void setTen(String ten) {
-		this.ten = ten;
+		this.tenNCC = ten;
 	}
 	public String getDiaChi() {
 		return diaChi;
@@ -40,7 +40,7 @@ public class NhaCungCap {
 	}
 	@Override
 	public int hashCode() {
-		return Objects.hash(diaChi, email, ma, sdt, ten);
+		return Objects.hash(diaChi, email, maNCC, sdt, tenNCC);
 	}
 	@Override
 	public boolean equals(Object obj) {
@@ -52,16 +52,16 @@ public class NhaCungCap {
 			return false;
 		NhaCungCap other = (NhaCungCap) obj;
 		return Objects.equals(diaChi, other.diaChi) && Objects.equals(email, other.email)
-				&& Objects.equals(ma, other.ma) && Objects.equals(sdt, other.sdt) && Objects.equals(ten, other.ten);
+				&& Objects.equals(maNCC, other.maNCC) && Objects.equals(sdt, other.sdt) && Objects.equals(tenNCC, other.tenNCC);
 	}
 	@Override
 	public String toString() {
-		return "NhaCungCap [ma=" + ma + ", ten=" + ten + ", diaChi=" + diaChi + ", sdt=" + sdt + ", email=" + email
+		return "NhaCungCap [ma=" + maNCC + ", ten=" + tenNCC + ", diaChi=" + diaChi + ", sdt=" + sdt + ", email=" + email
 				+ "]";
 	}
 	public NhaCungCap(String ma, String ten, String diaChi, String sdt, String email) {
-		this.ma = ma;
-		this.ten = ten;
+		this.maNCC = ma;
+		this.tenNCC = ten;
 		this.diaChi = diaChi;
 		this.sdt = sdt;
 		this.email = email;

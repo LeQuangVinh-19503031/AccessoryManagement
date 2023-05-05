@@ -7,20 +7,20 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import connectDB.ConnectDB;
-import model.HoaDonChiTiet;
+import model.DonHangChiTiet;
 
 public class HoaDonChiTiet_DAO {
-	public static ArrayList<HoaDonChiTiet> getAllFromDB(){
-		ArrayList<HoaDonChiTiet> list = new ArrayList<HoaDonChiTiet>();
+	public static ArrayList<DonHangChiTiet> getAllFromDB(){
+		ArrayList<DonHangChiTiet> list = new ArrayList<DonHangChiTiet>();
 		ConnectDB.getConDB();
 		Connection con = ConnectDB.getCon();
 		
 		try {
-			String spl = "Select * From HoaDonChiTiet";
+			String spl = "Select * From ChiTietDonHang";
 			Statement statement = con.createStatement();
 			ResultSet resultSet = statement.executeQuery(spl);
 			while(resultSet.next()) {
-				list.add(new HoaDonChiTiet(
+				list.add(new DonHangChiTiet(
 						resultSet.getString(1),
 						resultSet.getString(2),
 						resultSet.getLong(3),

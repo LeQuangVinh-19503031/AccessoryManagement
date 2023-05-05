@@ -9,7 +9,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import connectDB.ConnectDB;
-import model.HoaDon;
+import model.DonHang;
 import model.NhaCungCap;
 
 public class NhaCungCap_DAO {

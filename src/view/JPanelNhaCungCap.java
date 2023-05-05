@@ -11,37 +11,28 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.text.Document;
 
 import connectDB.ConnectDB;
-import dao.HoaDon_DAO;
 import dao.NhaCungCap_DAO;
-import model.HoaDon;
-import model.ModelListNhaCungCap;
 import model.NhaCungCap;
 
 import java.awt.BorderLayout;
 import javax.swing.SwingConstants;
 import java.awt.Font;
 import javax.swing.JButton;
-import java.awt.GridLayout;
-import javax.swing.JTextPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.table.DefaultTableColumnModel;
-import javax.swing.ListSelectionModel;
-import java.awt.ComponentOrientation;
-import javax.swing.ScrollPaneConstants;
-import javax.swing.border.BevelBorder;
-import javax.swing.border.EmptyBorder;
-import javax.swing.border.LineBorder;
-import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.text.ParseException;
 import java.awt.event.ActionEvent;
 import java.awt.Component;
-import javax.swing.JSplitPane;
+import java.awt.FlowLayout;
+import java.awt.Dimension;
+
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.EtchedBorder;
+import javax.swing.ImageIcon;
 
 public class JPanelNhaCungCap extends JPanel implements DocumentListener, MouseListener{
 	private JTextField textFieldTim;
@@ -61,8 +52,20 @@ public class JPanelNhaCungCap extends JPanel implements DocumentListener, MouseL
 	private JTextField textFieldDiaChi;
 	private JLabel lblMessMa, lblMessTen, lblMessEmail, lblMessSdt, lblMessDiaChi;
 	private JButton btnThem, btnCapNhat, btnXoa, btnXoaTrang;
-	private ModelListNhaCungCap model;
-	private JSplitPane splitPane;
+	private ArrayList<NhaCungCap> model;
+	private JPanel panel;
+	private JLabel lblNewLabel_3;
+	private JPanel panel_chucnang;
+	private JPanel panel_1;
+	private JLabel lblNewLabel_4;
+	private JPanel panel_2;
+	private JPanel panel_3;
+	private JLabel lblNewLabel_5;
+	private JLabel lblNewLabel_1_1;
+	private JTextField textField;
+	private JPanel panel_4;
+	private JPanel panel_5;
+	private JLabel lblNewLabel_1;
 	/**
 	 * @wbp.nonvisual location=164,104
 	 */
@@ -71,7 +74,7 @@ public class JPanelNhaCungCap extends JPanel implements DocumentListener, MouseL
 	 * Create the panel.
 	 */
 	public JPanelNhaCungCap() {
-		setBackground(new Color(204, 255, 255));
+		setBackground(new Color(64, 224, 208));
 		setLayout(null);
 		
 		JPanel panelTitle = new JPanel();
@@ -81,21 +84,22 @@ public class JPanelNhaCungCap extends JPanel implements DocumentListener, MouseL
 		panelTitle.setLayout(new BorderLayout(0, 0));
 		
 		JLabel lblNewLabel = new JLabel("NHÀ CUNG CẤP");
-		lblNewLabel.setFont(new Font("Consolas", Font.BOLD, 24));
+		lblNewLabel.setVerticalAlignment(SwingConstants.BOTTOM);
+		lblNewLabel.setFont(new Font("Consolas", Font.BOLD, 30));
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		panelTitle.add(lblNewLabel);
 		
 		JPanel panelTable = new JPanel();
-		panelTable.setBackground(new Color(204, 255, 255));
+		panelTable.setBackground(new Color(192, 192, 192));
 		panelTable.setAutoscrolls(true);
-		panelTable.setBorder(new TitledBorder(null, "DANH S\u00C1CH NH\u00C0 CUNG C\u1EA4P", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panelTable.setBounds(10, 63, 1265, 294);
+		panelTable.setBorder(null);
+		panelTable.setBounds(284, 63, 991, 390);
 		add(panelTable);
 		panelTable.setLayout(null);
 		
 		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(0, 25, 991, 365);
 		scrollPane.setBackground(new Color(204, 255, 255));
-		scrollPane.setBounds(10, 21, 1245, 262);
 		scrollPane.setViewportBorder(new EmptyBorder(0, 0, 0, 0));
 		panelTable.add(scrollPane);
 		
@@ -103,55 +107,157 @@ public class JPanelNhaCungCap extends JPanel implements DocumentListener, MouseL
 		table_1.setBackground(new Color(255, 255, 255));
 		scrollPane.setViewportView(table_1);
 		table_1.setModel(modelTable);
+		
+		panel = new JPanel();
+		panel.setBounds(0, 0, 1265, 25);
+		panel.setBackground(new Color(255, 69, 0));
+		panelTable.add(panel);
+		panel.setLayout(null);
+		
+		lblNewLabel_3 = new JLabel("DANH SÁCH NHÀ CUNG CẤP");
+		lblNewLabel_3.setBounds(5, 5, 977, 15);
+		lblNewLabel_3.setFont(new Font("Tahoma", Font.BOLD, 14));
+		panel.add(lblNewLabel_3);
 		table_1.addMouseListener(this);
+		
+		panel_chucnang = new JPanel();
+		panel_chucnang.setBorder(null);
+		panel_chucnang.setBackground(new Color(204, 204, 204));
+		panel_chucnang.setBounds(10, 63, 264, 390);
+		add(panel_chucnang);
+		panel_chucnang.setLayout(new BorderLayout(0, 0));
+		
+		panel_1 = new JPanel();
+		panel_1.setBackground(new Color(255, 69, 0));
+		panel_chucnang.add(panel_1, BorderLayout.NORTH);
+		panel_1.setLayout(new FlowLayout(FlowLayout.LEFT, 5, 5));
+		
+		lblNewLabel_4 = new JLabel("CHỨC NĂNG");
+		lblNewLabel_4.setFont(new Font("Tahoma", Font.BOLD, 14));
+		panel_1.add(lblNewLabel_4);
+		
+		panel_2 = new JPanel();
+		panel_2.setLayout(null);
+		panel_2.setPreferredSize(new Dimension(200, 160));
+		panel_2.setBackground(new Color(204, 204, 204));
+		panel_chucnang.add(panel_2);
+		
+		panel_3 = new JPanel();
+		panel_3.setLayout(null);
+		panel_3.setPreferredSize(new Dimension(250, 180));
+		panel_3.setBorder(new TitledBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)), "L\u1ECCC", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		panel_3.setBackground(new Color(204, 204, 204));
+		panel_3.setBounds(10, 183, 244, 175);
+		panel_2.add(panel_3);
+		
+		lblNewLabel_5 = new JLabel("MÃ");
+		lblNewLabel_5.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		lblNewLabel_5.setBounds(10, 20, 224, 27);
+		panel_3.add(lblNewLabel_5);
+		
+		lblNewLabel_1_1 = new JLabel("TÊN");
+		lblNewLabel_1_1.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		lblNewLabel_1_1.setBounds(10, 93, 224, 27);
+		panel_3.add(lblNewLabel_1_1);
+		
+		textFieldTim = new JTextField();
+		textFieldTim.setBounds(10, 51, 224, 32);
+		panel_3.add(textFieldTim);
+		textFieldTim.setColumns(10);
+		
+		textField = new JTextField();
+		textField.setColumns(10);
+		textField.setBounds(10, 130, 224, 32);
+		panel_3.add(textField);
+		
+		textFieldTim.getDocument().addDocumentListener(this);
+		
+		btnThem = new JButton("");
+		btnThem.setIcon(new ImageIcon(JPanelNhaCungCap.class.getResource("/img/add_36px.png")));
+		btnThem.setBounds(10, 10, 70, 70);
+		panel_2.add(btnThem);
+		btnThem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				themNhaCungCap();
+			}
+			
+		});
+		btnThem.setToolTipText("Thêm nhà cung cấp");
+		
+		btnCapNhat = new JButton("");
+		btnCapNhat.setIcon(new ImageIcon(JPanelNhaCungCap.class.getResource("/img/update_36px.png")));
+		btnCapNhat.setBounds(10, 90, 70, 70);
+		panel_2.add(btnCapNhat);
+		btnCapNhat.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				capNhatNhaCungCap();
+			}
+
+		});
+		btnCapNhat.setToolTipText("Cập nhật thông tin");
+		
+		btnXoa = new JButton("");
+		btnXoa.setIcon(new ImageIcon(JPanelNhaCungCap.class.getResource("/img/minus_36px.png")));
+		btnXoa.setBounds(90, 10, 70, 70);
+		panel_2.add(btnXoa);
+		
+		btnXoaTrang = new JButton("");
+		btnXoaTrang.setIcon(new ImageIcon(JPanelNhaCungCap.class.getResource("/img/erase_36px.png")));
+		btnXoaTrang.setBounds(90, 90, 70, 70);
+		panel_2.add(btnXoaTrang);
+		
+		panel_4 = new JPanel();
+		panel_4.setBackground(new Color(192, 192, 192));
+		panel_4.setBounds(10, 463, 1265, 223);
+		add(panel_4);
+		panel_4.setLayout(new BorderLayout(0, 0));
 		
 		
 		JPanel panelThongTin = new JPanel();
-		panelThongTin.setBorder(new TitledBorder(null, "TH\u00D4NG TIN NH\u00C0 CUNG C\u1EA4P", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panelThongTin.setBackground(new Color(204, 255, 255));
-		panelThongTin.setBounds(10, 463, 1265, 232);
-		add(panelThongTin);
+		panel_4.add(panelThongTin, BorderLayout.CENTER);
+		panelThongTin.setBorder(null);
+		panelThongTin.setBackground(new Color(192, 192, 192));
 		panelThongTin.setLayout(null);
 		
 		JLabel lblNewLabel_2 = new JLabel("Mã nhà cung cấp");
 		lblNewLabel_2.setAlignmentY(Component.TOP_ALIGNMENT);
 		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		lblNewLabel_2.setHorizontalAlignment(SwingConstants.LEFT);
-		lblNewLabel_2.setBounds(10, 52, 143, 32);
+		lblNewLabel_2.setBounds(57, 29, 143, 32);
 		panelThongTin.add(lblNewLabel_2);
 		
 		JLabel lblNewLabel_2_1 = new JLabel("Tên nhà cung cấp");
 		lblNewLabel_2_1.setAlignmentY(Component.TOP_ALIGNMENT);
 		lblNewLabel_2_1.setHorizontalAlignment(SwingConstants.LEFT);
 		lblNewLabel_2_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblNewLabel_2_1.setBounds(559, 54, 143, 32);
+		lblNewLabel_2_1.setBounds(642, 29, 143, 32);
 		panelThongTin.add(lblNewLabel_2_1);
 		
 		JLabel lblNewLabel_2_2 = new JLabel("Email");
 		lblNewLabel_2_2.setAlignmentY(Component.TOP_ALIGNMENT);
 		lblNewLabel_2_2.setHorizontalAlignment(SwingConstants.LEFT);
 		lblNewLabel_2_2.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblNewLabel_2_2.setBounds(10, 123, 143, 32);
+		lblNewLabel_2_2.setBounds(57, 92, 143, 32);
 		panelThongTin.add(lblNewLabel_2_2);
 		
 		JLabel lblNewLabel_2_2_1 = new JLabel("Số điện thoại");
 		lblNewLabel_2_2_1.setAlignmentY(Component.TOP_ALIGNMENT);
 		lblNewLabel_2_2_1.setHorizontalAlignment(SwingConstants.LEFT);
 		lblNewLabel_2_2_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblNewLabel_2_2_1.setBounds(559, 119, 143, 32);
+		lblNewLabel_2_2_1.setBounds(642, 88, 143, 32);
 		panelThongTin.add(lblNewLabel_2_2_1);
 		
 		JLabel lblNewLabel_2_2_2 = new JLabel("Địa chỉ");
 		lblNewLabel_2_2_2.setAlignmentY(Component.TOP_ALIGNMENT);
 		lblNewLabel_2_2_2.setHorizontalAlignment(SwingConstants.LEFT);
 		lblNewLabel_2_2_2.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblNewLabel_2_2_2.setBounds(10, 186, 143, 32);
+		lblNewLabel_2_2_2.setBounds(57, 151, 143, 32);
 		panelThongTin.add(lblNewLabel_2_2_2);
 		
 		textFieldMa = new JTextField();
 		textFieldMa.setAlignmentY(Component.TOP_ALIGNMENT);
 		textFieldMa.setAlignmentX(Component.LEFT_ALIGNMENT);
-		textFieldMa.setBounds(163, 55, 386, 32);
+		textFieldMa.setBounds(210, 30, 386, 32);
 		panelThongTin.add(textFieldMa);
 		textFieldMa.setColumns(10);
 		
@@ -161,7 +267,7 @@ public class JPanelNhaCungCap extends JPanel implements DocumentListener, MouseL
 		textFieldTen.setAlignmentY(Component.TOP_ALIGNMENT);
 		textFieldTen.setAlignmentX(Component.LEFT_ALIGNMENT);
 		textFieldTen.setColumns(10);
-		textFieldTen.setBounds(712, 55, 386, 32);
+		textFieldTen.setBounds(795, 30, 386, 32);
 		panelThongTin.add(textFieldTen);
 		
 		textFieldTen.getDocument().addDocumentListener(this);
@@ -170,7 +276,7 @@ public class JPanelNhaCungCap extends JPanel implements DocumentListener, MouseL
 		textFieldEmail.setAlignmentY(Component.TOP_ALIGNMENT);
 		textFieldEmail.setAlignmentX(Component.LEFT_ALIGNMENT);
 		textFieldEmail.setColumns(10);
-		textFieldEmail.setBounds(163, 123, 386, 32);
+		textFieldEmail.setBounds(210, 90, 386, 32);
 		panelThongTin.add(textFieldEmail);
 		
 		textFieldEmail.getDocument().addDocumentListener(this);
@@ -179,7 +285,7 @@ public class JPanelNhaCungCap extends JPanel implements DocumentListener, MouseL
 		textFieldSdt.setAlignmentY(Component.TOP_ALIGNMENT);
 		textFieldSdt.setAlignmentX(Component.LEFT_ALIGNMENT);
 		textFieldSdt.setColumns(10);
-		textFieldSdt.setBounds(712, 122, 386, 32);
+		textFieldSdt.setBounds(795, 91, 386, 32);
 		panelThongTin.add(textFieldSdt);
 		
 		textFieldSdt.getDocument().addDocumentListener(this);
@@ -188,104 +294,52 @@ public class JPanelNhaCungCap extends JPanel implements DocumentListener, MouseL
 		textFieldDiaChi.setAlignmentY(Component.TOP_ALIGNMENT);
 		textFieldDiaChi.setAlignmentX(Component.LEFT_ALIGNMENT);
 		textFieldDiaChi.setColumns(10);
-		textFieldDiaChi.setBounds(163, 189, 386, 32);
+		textFieldDiaChi.setBounds(210, 152, 386, 32);
 		panelThongTin.add(textFieldDiaChi);
 		
 		lblMessDiaChi = new JLabel("");
-		lblMessDiaChi.setBounds(163, 158, 386, 32);
+		lblMessDiaChi.setBounds(210, 121, 386, 32);
 		panelThongTin.add(lblMessDiaChi);
 		lblMessDiaChi.setForeground(new Color(255, 0, 0));
 		
 		lblMessSdt = new JLabel("");
-		lblMessSdt.setBounds(712, 90, 386, 32);
+		lblMessSdt.setBounds(795, 59, 386, 32);
 		panelThongTin.add(lblMessSdt);
 		lblMessSdt.setForeground(new Color(255, 0, 0));
 		
 		lblMessEmail = new JLabel("");
-		lblMessEmail.setBounds(163, 92, 386, 32);
+		lblMessEmail.setBounds(210, 59, 386, 32);
 		panelThongTin.add(lblMessEmail);
 		lblMessEmail.setForeground(new Color(255, 0, 0));
 		
 		lblMessTen = new JLabel("");
-		lblMessTen.setBounds(712, 23, 386, 32);
+		lblMessTen.setBounds(795, -2, 386, 32);
 		panelThongTin.add(lblMessTen);
 		lblMessTen.setForeground(new Color(255, 0, 0));
 		
 		lblMessMa = new JLabel("");
-		lblMessMa.setBounds(163, 23, 386, 32);
+		lblMessMa.setBounds(210, -2, 386, 32);
 		panelThongTin.add(lblMessMa);
 		lblMessMa.setForeground(new Color(255, 0, 0));
 		
+		panel_5 = new JPanel();
+		panel_5.setBackground(new Color(255, 69, 0));
+		FlowLayout flowLayout = (FlowLayout) panel_5.getLayout();
+		flowLayout.setAlignment(FlowLayout.LEFT);
+		panel_4.add(panel_5, BorderLayout.NORTH);
+		
+		lblNewLabel_1 = new JLabel("THÔNG TIN NHÀ CUNG CẤP");
+		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 12));
+		panel_5.add(lblNewLabel_1);
+		
 		textFieldDiaChi.getDocument().addDocumentListener(this);
-		
-		splitPane = new JSplitPane();
-		splitPane.setBorder(null);
-		splitPane.setResizeWeight(0.5);
-		splitPane.setAlignmentY(Component.CENTER_ALIGNMENT);
-		splitPane.setAlignmentX(Component.CENTER_ALIGNMENT);
-		splitPane.setBounds(10, 367, 1265, 88);
-		add(splitPane);
-		
-		JPanel panelChucNang = new JPanel();
-		splitPane.setLeftComponent(panelChucNang);
-		panelChucNang.setBorder(new TitledBorder(null, "CH\u1EE8C N\u0102NG", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panelChucNang.setBackground(new Color(204, 255, 255));
-		panelChucNang.setLayout(null);
-		
-		btnThem = new JButton("THÊM");
-		btnThem.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				themNhaCungCap();
-			}
-			
-		});
-		btnThem.setToolTipText("Thêm nhà cung cấp");
-		btnThem.setBounds(10, 22, 134, 42);
-		panelChucNang.add(btnThem);
-		
-		btnCapNhat = new JButton("CẬP NHẬT");
-		btnCapNhat.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				capNhatNhaCungCap();
-			}
-
-		});
-		btnCapNhat.setToolTipText("Cập nhật thông tin");
-		btnCapNhat.setBounds(154, 22, 134, 42);
-		panelChucNang.add(btnCapNhat);
-		
-		btnXoa = new JButton("XÓA");
-		btnXoa.setBounds(298, 22, 134, 42);
-		panelChucNang.add(btnXoa);
-		
-		btnXoaTrang = new JButton("XÓA TRẮNG");
 		btnXoaTrang.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				xoaTrang();
 			}
 		});
-		btnXoaTrang.setBounds(442, 22, 134, 42);
-		panelChucNang.add(btnXoaTrang);
 		
-		JPanel panelChucNangNhanh = new JPanel();
-		splitPane.setRightComponent(panelChucNangNhanh);
-		panelChucNangNhanh.setBackground(new Color(204, 255, 255));
-		panelChucNangNhanh.setBorder(new TitledBorder(null, "CH\u1EE8C N\u0102NG NHANH", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panelChucNangNhanh.setLayout(null);
-		
-		JLabel lblNewLabel_1 = new JLabel("TÌM KIẾM MÃ");
-		lblNewLabel_1.setBounds(10, 26, 118, 38);
-		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
-		panelChucNangNhanh.add(lblNewLabel_1);
-		
-		textFieldTim = new JTextField();
-		textFieldTim.setBounds(138, 30, 461, 32);
-		panelChucNangNhanh.add(textFieldTim);
-		textFieldTim.setColumns(10);
-		
-		textFieldTim.getDocument().addDocumentListener(this);
-		
-		model = new ModelListNhaCungCap();
+		model = new ArrayList<NhaCungCap>();
 		updateTable();
 		
 	}
@@ -293,7 +347,7 @@ public class JPanelNhaCungCap extends JPanel implements DocumentListener, MouseL
 	private void updateTable() {
 		uploadDB();
 		modelTable.setRowCount(0);
-		for (NhaCungCap a : model.getList()) {
+		for (NhaCungCap a : model) {
 			modelTable.addRow(new Object[] {
 					a.getMa(),
 					a.getTen(),
@@ -308,7 +362,7 @@ public class JPanelNhaCungCap extends JPanel implements DocumentListener, MouseL
 	private void uploadDB() {
 		ConnectDB con = new ConnectDB();
 		con.connect();
-		model.setList(NhaCungCap_DAO.getAllFromDB());
+		model=NhaCungCap_DAO.getAllFromDB();
 		con.disconect();
 	}
 	
@@ -426,11 +480,6 @@ public class JPanelNhaCungCap extends JPanel implements DocumentListener, MouseL
 						
 						int confirm = JOptionPane.showConfirmDialog(null, "Cập nhật nhà cung cấp "+a.getMa(), "Cập nhật", JOptionPane.YES_NO_OPTION);
 						if(confirm == JOptionPane.YES_OPTION) {
-							modelTable.setValueAt(a.getMa(), n, 0);
-							modelTable.setValueAt(a.getTen(), n, 1);
-							modelTable.setValueAt(a.getEmail(), n, 2);
-							modelTable.setValueAt(a.getSdt(), n, 3);
-							modelTable.setValueAt(a.getDiaChi(), n, 4);
 							
 							ConnectDB con = new ConnectDB();
 							con.connect();
@@ -599,7 +648,7 @@ public class JPanelNhaCungCap extends JPanel implements DocumentListener, MouseL
 			this.setVisible(true);
 		}else {
 			modelTable.setRowCount(0);
-			for (NhaCungCap x : model.getList()) {
+			for (NhaCungCap x : model) {
 				if(x.getMa().toUpperCase().contains(a.toUpperCase())) {
 					modelTable.addRow(new Object[] {
 							x.getMa(),

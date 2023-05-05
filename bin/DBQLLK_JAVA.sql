@@ -125,17 +125,21 @@ insert into LinhKien values ('LK03', N'Bàn phím AKKO 3087 RF Ocean Star', 'BPC
 Select * FROM LinhKien
 go
 
-insert into PhongBan values ('KThuat', N'Phòng Kỹ Thuật')
-insert into PhongBan values ('KDoanh', N'Phòng Kinh Doanh')
-insert into PhongBan values ('NSu', N'Phòng Nhân Sự')
-insert into PhongBan values ('KToan', N'Phòng Kế Toán')
-insert into PhongBan values ('VChuyen', N'Phòng Vận Chuyển')
-Select * FROM PhongBan
+insert into PhongBan values ('KTHUAT', N'Phòng Kỹ Thuật')
+insert into PhongBan values ('KDOANH', N'Phòng Kinh Doanh')
+insert into PhongBan values ('NSU', N'Phòng Nhân Sự')
+insert into PhongBan values ('KTOAN', N'Phòng Kế Toán')
+insert into PhongBan values ('VCHUYEN', N'Phòng Vận Chuyển')
+select * from PhongBan
+
 go
 
-insert into NhanVien values ('NV01', N'LÊ QUANG VINH', 'NSu', 'NV01', '04-21-2019', '03-17-2001', 'Nam', 'TP.HCM', '01234123', 'lea26462', '123456789', 'NVNS01', 'NVNS01')
-insert into NhanVien values ('NV02', N'PHẠM CHÍ XUÂN', 'KDoanh', 'NV01', '04-21-2019', '11-19-2001', 'Nam', 'TP.HCM', '01234123', 'chixuan123', '123456789', 'NVNS02', 'NVNS02')
+insert into NhanVien values ('NV01', N'LÊ QUANG VINH', 'NSU', 'NV01', '04-21-2019', '03-17-2001', 'Nam', 'TP.HCM', '01234123', 'lea26462', '123456789', 'NVNS01', 'NVNS01')
+insert into NhanVien values ('NV02', N'PHẠM CHÍ XUÂN', 'KDOANH', 'NV01', '04-21-2019', '11-19-2001', 'Nam', 'TP.HCM', '01234123', 'chixuan123', '123456789', 'NVNS02', 'NVNS02')
 Select * FROM NhanVien
+UPDATE NhanVien
+SET MaPB = 'KDOANH'
+WHERE MaNV = 'NV02'
 go
 
 insert into KhachHang values ('KH01', N'VINH', N'GÒ VẤP, TP.HCM', '012391234', 'lea26423')
@@ -149,8 +153,11 @@ Select * FROM DonDatHang
 go
 
 insert into ChiTietDonDat values ('DH01', 'LK01', 1000000, 1, 10, 900000)
-Select * FROM ChiTietDonDat
+	
 
+UPDATE DonDatHang
+SET MaKH = 'KH01', MaNV = 'NV01', NgayDatHang = GETDATE(), NgayGiaoHang = '05-18-2023', NoiGiaoNhanHang = N'THỦ ĐỨC'
+WHERE MaHD = 'HD04'
 
 /*
 DELETE FROM DONDATHANG

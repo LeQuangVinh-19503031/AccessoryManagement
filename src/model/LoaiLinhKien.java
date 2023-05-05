@@ -3,36 +3,36 @@ package model;
 import java.util.Objects;
 
 public class LoaiLinhKien {
-	private String ma;
-	private String ten;
+	private String maLLK;
+	private String tenLLK;
 	
 	public LoaiLinhKien() {
 	}
 
 	public LoaiLinhKien(String ma, String ten) {
-		this.ma = ma;
-		this.ten = ten;
+		this.maLLK = ma;
+		this.tenLLK = ten;
 	}
 
 	public String getMa() {
-		return ma;
+		return maLLK;
 	}
 
 	public void setMa(String ma) {
-		this.ma = ma;
+		this.maLLK = ma;
 	}
 
 	public String getTen() {
-		return ten;
+		return tenLLK;
 	}
 
 	public void setTen(String ten) {
-		this.ten = ten;
+		this.tenLLK = ten;
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(ma, ten);
+		return Objects.hash(maLLK, tenLLK);
 	}
 
 	@Override
@@ -44,12 +44,12 @@ public class LoaiLinhKien {
 		if (getClass() != obj.getClass())
 			return false;
 		LoaiLinhKien other = (LoaiLinhKien) obj;
-		return Objects.equals(ma, other.ma) && Objects.equals(ten, other.ten);
+		return Objects.equals(maLLK, other.maLLK) && Objects.equals(tenLLK, other.tenLLK);
 	}
 
 	@Override
 	public String toString() {
-		return "LoaiLinhKien [ma=" + ma + ", ten=" + ten + "]";
+		return "LoaiLinhKien [ma=" + maLLK + ", ten=" + tenLLK + "]";
 	}
 
 	
