@@ -35,6 +35,7 @@ import dao.NhanVien_DAO;
 import model.DonHang;
 import model.KhachHang;
 import model.NhanVien;
+import model.TaiKhoan;
 
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -93,9 +94,10 @@ public class JPanelDonHang extends JPanel implements DocumentListener, MouseList
 	private JTextField textMaKH_Loc;
 	private JLabel lblNewLabel_13;
 	private JTextField textMaNV_Loc;
-
-	public JPanelDonHang() {
-	
+	private int slDonHang = 0;
+	private TaiKhoan taikhoan;
+	public JPanelDonHang(TaiKhoan a) {
+		this.taikhoan = a;
 		setBackground(new Color(64, 224, 208));
 		setLayout(null);
 		
@@ -324,6 +326,8 @@ public class JPanelDonHang extends JPanel implements DocumentListener, MouseList
 		panelThongTin.add(lblNewLabel_2_2_2);
 		
 		textFieldMaHD = new JTextField();
+		textFieldMaHD.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		textFieldMaHD.setEnabled(false);
 		textFieldMaHD.setAlignmentY(Component.TOP_ALIGNMENT);
 		textFieldMaHD.setAlignmentX(Component.LEFT_ALIGNMENT);
 		textFieldMaHD.setBounds(13, 37, 343, 32);
@@ -332,6 +336,8 @@ public class JPanelDonHang extends JPanel implements DocumentListener, MouseList
 		
 		
 		textFieldMaKhachHang = new JTextField();
+		textFieldMaKhachHang.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		textFieldMaKhachHang.setEnabled(false);
 		textFieldMaKhachHang.setAlignmentY(Component.TOP_ALIGNMENT);
 		textFieldMaKhachHang.setAlignmentX(Component.LEFT_ALIGNMENT);
 		textFieldMaKhachHang.setColumns(10);
@@ -340,14 +346,18 @@ public class JPanelDonHang extends JPanel implements DocumentListener, MouseList
 		
 		
 		textFieldMaNhanVien = new JTextField();
+		textFieldMaNhanVien.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		textFieldMaNhanVien.setEnabled(false);
 		textFieldMaNhanVien.setAlignmentY(Component.TOP_ALIGNMENT);
 		textFieldMaNhanVien.setAlignmentX(Component.LEFT_ALIGNMENT);
 		textFieldMaNhanVien.setColumns(10);
-		textFieldMaNhanVien.setBounds(17, 104, 343, 32);
+		textFieldMaNhanVien.setBounds(13, 105, 343, 32);
 		panelThongTin.add(textFieldMaNhanVien);
 		
 		
 		textFieldNgayGiao = new JTextField();
+		textFieldNgayGiao.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		textFieldNgayGiao.setEnabled(false);
 		textFieldNgayGiao.setAlignmentY(Component.TOP_ALIGNMENT);
 		textFieldNgayGiao.setAlignmentX(Component.LEFT_ALIGNMENT);
 		textFieldNgayGiao.setColumns(10);
@@ -356,10 +366,12 @@ public class JPanelDonHang extends JPanel implements DocumentListener, MouseList
 		
 		
 		textFieldDiaChiGiaoHang = new JTextField();
+		textFieldDiaChiGiaoHang.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		textFieldDiaChiGiaoHang.setEnabled(false);
 		textFieldDiaChiGiaoHang.setAlignmentY(Component.TOP_ALIGNMENT);
 		textFieldDiaChiGiaoHang.setAlignmentX(Component.LEFT_ALIGNMENT);
 		textFieldDiaChiGiaoHang.setColumns(10);
-		textFieldDiaChiGiaoHang.setBounds(13, 172, 343, 32);
+		textFieldDiaChiGiaoHang.setBounds(13, 175, 343, 32);
 		panelThongTin.add(textFieldDiaChiGiaoHang);
 		
 		lblMessDiaChiGiaoHang = new JLabel("");
@@ -583,6 +595,7 @@ public class JPanelDonHang extends JPanel implements DocumentListener, MouseList
 					a.getDiaChiGiaoHang()
 			});
 		}
+		slDonHang = model.size();
 		this.setVisible(true);
 	
 	}
@@ -595,12 +608,18 @@ public class JPanelDonHang extends JPanel implements DocumentListener, MouseList
 	}
 	
 	public void jTextFieldEditable(boolean choose) {
+		
+		textFieldMaHD.setEnabled(choose);
+		textFieldMaKhachHang.setEnabled(choose);
+		textFieldMaNhanVien.setEnabled(choose);
+		textFieldNgayGiao.setEnabled(choose);
+		textFieldDiaChiGiaoHang.setEnabled(choose);
+		
 		textFieldMaHD.setEditable(choose);
 		textFieldMaKhachHang.setEditable(choose);
 		textFieldMaNhanVien.setEditable(choose);
 		textFieldNgayGiao.setEditable(choose);
 		textFieldDiaChiGiaoHang.setEditable(choose);
-		
 		
 	}
 	
@@ -665,12 +684,22 @@ public class JPanelDonHang extends JPanel implements DocumentListener, MouseList
 		DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy");  
 		LocalDateTime now = LocalDateTime.now();
-//		System.out.println(dtf.format(now));  
+		String maNV = search_NVDangHD(this.taikhoan);
 		DonHang a = new DonHang();
-		if(!textFieldMaHD.isEditable()) {	
+		if(slDonHang<10)
+			textFieldMaHD.setText("DH0"+(slDonHang + 1));
+		else
+			textFieldMaHD.setText("DH"+(slDonHang + 1));
+		textFieldMaNhanVien.setText(maNV);
+		if(!textFieldMaHD.isEnabled()) {	
 			xoaTrang();
 			jTextFieldEditable(true);
 			this.textFieldMaHD.setEditable(true);
+			if(slDonHang<10)
+				textFieldMaHD.setText("DH0"+(slDonHang + 1));
+			else
+				textFieldMaHD.setText("DH"+(slDonHang + 1));
+			textFieldMaNhanVien.setText(maNV);
 		}else {
 			if(checkfieldHopLe()) {
 				jTextFieldEditable(false);
@@ -705,6 +734,14 @@ public class JPanelDonHang extends JPanel implements DocumentListener, MouseList
 		}
 
 		updateTable();
+	}
+	
+	private String search_NVDangHD(TaiKhoan x) {
+		for (NhanVien a : listNV) {
+			if(a.getUser().equals(x.getUser()) && a.getPass().equalsIgnoreCase(x.getPass()))
+				return a.getMa();
+		}
+		return null;
 	}
 	
 	public void jButtomEnableForUpdate(boolean choose) {
@@ -826,7 +863,7 @@ public class JPanelDonHang extends JPanel implements DocumentListener, MouseList
 			if(textFieldNgayGiao.getText().matches("\\d{2}-\\d{2}-\\d{4}")) {
 				lblMessNgayGiao.setText("");
 			}else
-				lblMessNgayGiao.setText("Chưa đúng định dạng ! [dd-MM-yyyy]");
+				lblMessNgayGiao.setText("\"dd-MM-yyyy\" !");
 		}else if(src.equals(textFieldDiaChiGiaoHang.getDocument())) {
 			if(textFieldDiaChiGiaoHang.getText().length()> 2) {
 				lblMessDiaChiGiaoHang.setText("");
@@ -916,7 +953,7 @@ public class JPanelDonHang extends JPanel implements DocumentListener, MouseList
 			if(textFieldNgayGiao.getText().matches("\\d{2}-\\d{2}-\\d{4}")) {
 				lblMessNgayGiao.setText("");
 			}else
-				lblMessNgayGiao.setText("Chưa đúng định dạng ! [dd-MM-yyyy]");
+				lblMessNgayGiao.setText("\"dd-MM-yyyy\" !");
 		}else if(src.equals(textFieldDiaChiGiaoHang.getDocument())) {
 			if(textFieldDiaChiGiaoHang.getText().length()> 2) {
 				lblMessDiaChiGiaoHang.setText("");
@@ -1056,7 +1093,7 @@ public class JPanelDonHang extends JPanel implements DocumentListener, MouseList
 			if(textFieldNgayGiao.getText().matches("\\d{2}-\\d{2}-\\d{4}")) {
 				lblMessNgayGiao.setText("");
 			}else
-				lblMessNgayGiao.setText("Chưa đúng định dạng ! [dd-MM-yyyy]");
+				lblMessNgayGiao.setText("\"dd-MM-yyyy\" !");
 		}else if(src.equals(textFieldDiaChiGiaoHang.getDocument())) {
 			if(textFieldDiaChiGiaoHang.getText().length()> 2) {
 				lblMessDiaChiGiaoHang.setText("");

@@ -151,7 +151,7 @@ public class WindowMain implements ActionListener{
 		frameChangeAccount.getContentPane().add(textField_1);
 	}
 	
-	private void initLogin() {
+	public void initLogin() {
 		frmLogin = new JFrame();
 		frmLogin.setBackground(new Color(153, 153, 153));
 		frmLogin.setIconImage(Toolkit.getDefaultToolkit().getImage(WindowMain.class.getResource("/img/homeWest/user_32px.png")));
@@ -269,7 +269,7 @@ public class WindowMain implements ActionListener{
 		frmTrangChu.getContentPane().setLayout(null);
 		
 		panelMenu.setBackground(new Color(192, 192, 192));
-		panelMenu.setBounds(0, 0, 1286, 120);
+		panelMenu.setBounds(0, 0, 1286, 1);
 		frmTrangChu.getContentPane().add(panelMenu);
 		panelMenu.setLayout(null);
 		
@@ -487,12 +487,19 @@ public class WindowMain implements ActionListener{
 		});
 		btnNewButton.setBounds(678, 64, 157, 44);
 		panel_1.add(btnNewButton);
-		btnDangXuat.addActionListener(new ActionListener() {
+		
+		JButton btnNewButton_1 = new JButton("");
+		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frmTrangChu.setVisible(false);
 				frmLogin.setVisible(true);
 			}
 		});
+		btnNewButton_1.setIcon(new ImageIcon(WindowMain.class.getResource("/img/logout_24px.png")));
+		btnNewButton_1.setBackground(new Color(192, 192, 192));
+		btnNewButton_1.setBounds(1111, 87, 45, 30);
+		panelMenu.add(btnNewButton_1);
+		
 		btnNhaCungCap.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				CardLayout c = (CardLayout) (panelContent.getLayout());
@@ -642,11 +649,11 @@ public class WindowMain implements ActionListener{
 		panelContent.add(panelLoaiLinhKien, "panelLoaiLinhKien");
 		panelLoaiLinhKien.setLayout(null);
 		
-		panelHoaDon = new JPanelDonHang();
+		panelHoaDon = new JPanelDonHang(new TaiKhoan(taiKhoanfield.getText(), passfield.getText()));
 		panelContent.add(panelHoaDon, "panelHoaDon");
 		panelHoaDon.setLayout(null);
 		
-		panelNhanVien = new JPanelNhanVien(searchPBTK());
+		panelNhanVien = new JPanelNhanVien(new TaiKhoan(taiKhoanfield.getText(), passfield.getText()));
 		panelContent.add(panelNhanVien, "panelNhanVien");
 		panelNhanVien.setLayout(null);
 		
@@ -654,7 +661,7 @@ public class WindowMain implements ActionListener{
 		panelContent.add(panelPhongBan, "panelPhongBan");
 		panelPhongBan.setLayout(null);
 		
-		panelHoaDonChiTiet = new JPanelHoaDonChiTiet();
+		panelHoaDonChiTiet = new JPanelChiTietDonHang();
 		panelContent.add(panelHoaDonChiTiet, "panelHoaDonChiTiet");
 		panelHoaDonChiTiet.setLayout(null);
 		

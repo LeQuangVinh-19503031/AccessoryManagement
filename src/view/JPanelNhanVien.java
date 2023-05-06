@@ -42,6 +42,7 @@ import dao.PhongBan_DAO;
 import model.DonHang;
 import model.NhanVien;
 import model.PhongBan;
+import model.TaiKhoan;
 
 import com.jgoodies.forms.layout.FormSpecs;
 import javax.swing.GroupLayout;
@@ -122,13 +123,13 @@ public class JPanelNhanVien extends JPanel implements DocumentListener, MouseLis
 	private JTextField textFieldMatKhau;
 	private JLabel lblMessTaiKhoan;
 	private JLabel lblMatKhau;
-	private String phanQuyen = "";
 	private JRadioButton btnHuyGT;
+	private TaiKhoan tk;
 	/**
 	 * Create the panel.
 	 */
-	public JPanelNhanVien(String phanQuyen) {
-		
+	public JPanelNhanVien(TaiKhoan a) {
+		this.tk = a;
 		setBackground(new Color(64, 224, 208));
 		setLayout(null);
 		
@@ -659,7 +660,7 @@ public class JPanelNhanVien extends JPanel implements DocumentListener, MouseLis
 		buttonLocNam.addMouseListener(this);
 		buttonLocNu.addMouseListener(this);
 		
-		if(phanQuyen.equals("NSU")) {
+		if(searchTK(a.getUser()).getMaPB().equalsIgnoreCase("NSU")) {
 			btnCapNhat.setEnabled(true);
 			btnThem.setEnabled(true);
 			btnXoa.setEnabled(true);
@@ -777,6 +778,9 @@ public class JPanelNhanVien extends JPanel implements DocumentListener, MouseLis
 									updateTable();
 									xoaTrang();
 									table.setRowSelectionInterval(n, n);
+									if(searchTK(tk.getUser()).equals(searchNV(a.getMa()))) {
+										JOptionPane.showMessageDialog(null, "Bạn cần đăng nhập lại !", "Đăng nhập lại", JOptionPane.CANCEL_OPTION);
+									}
 								}else {
 									JOptionPane.showMessageDialog(null, "CẬP NHẬT THẤT BẠI");
 								}
@@ -1612,4 +1616,21 @@ public class JPanelNhanVien extends JPanel implements DocumentListener, MouseLis
 		}
 		
 	}
+	
+	public NhanVien searchNV(String id) {
+		for (NhanVien nhanVien : model) {
+			if(nhanVien.getMa().equalsIgnoreCase(id))
+				return nhanVien;
+		}
+		return null;
+	}
+	
+	public NhanVien searchTK(String idUser) {
+		for (NhanVien nhanVien : model) {
+			if(nhanVien.getUser().equalsIgnoreCase(idUser))
+				return nhanVien;
+		}
+		return null;
+	}
+	
 }

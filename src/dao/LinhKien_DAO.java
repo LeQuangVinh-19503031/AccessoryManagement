@@ -114,5 +114,32 @@ public class LinhKien_DAO {
 					return true;
 				}
 		}
+		public static void giamSoluongLK(String ma, int soluong) {
+			
+			ConnectDB.getConDB();
+			Connection con = ConnectDB.getCon();
+			PreparedStatement prepare = null;
+			String sql = "UPDATE LinhKien "+
+						"SET SLTon= ? "+
+						"WHERE MaLK = ?";
+				try {
+					
+					prepare = con.prepareStatement(sql);
+					prepare.setInt(1, soluong);
+					prepare.setString(2, ma);
+					System.out.println(soluong);
+					prepare.executeUpdate();
+					
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}finally {
+					try {
+						con.close();
+						System.out.println("Giam thanh cong");
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
+				}
+		}
 
 }
