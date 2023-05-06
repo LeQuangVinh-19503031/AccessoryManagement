@@ -73,15 +73,6 @@ public class NhanVien_DAO {
 		
 		return list;
 	}
-	
-	
-	
-	public static void main(String[] args) {
-		ConnectDB connectDB = new ConnectDB();
-		connectDB.connect();
-		getAllAccountPass();
-		connectDB.disconect();
-	}
 
 
 	public static boolean insertNV(NhanVien a) {
@@ -141,6 +132,28 @@ public class NhanVien_DAO {
 		
 		return list;
 	}
+	
+	public static boolean removeNV(NhanVien a) {
+		ConnectDB.getConDB();
+		Connection con = ConnectDB.getCon();
+		PreparedStatement prepare = null;
+		String sql = "DELETE FROM NhanVien WHERE MaNV=?";
+			try {
+				prepare = con.prepareStatement(sql);
+				prepare.setString(1, a.getMa());
+				prepare.executeUpdate();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}finally {
+				try {
+					con.close();
+					return true;
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			return false;
+	}
 
 
 	public static boolean updateNV(NhanVien a) {
@@ -149,7 +162,7 @@ public class NhanVien_DAO {
 		Connection con = ConnectDB.getCon();
 		PreparedStatement prepare = null;
 		String sql = "UPDATE NhanVien "+
-		"SET TenNV = ?, MaPB = ?, MaQuanLy = ?, NgayVaoLam = ?, NgaySinh = ?, GioiTinh = ?, LuongCB = ?, Phone = ?, Email = ?, chungMinhThu = ?, TaiKhoan = ?, MatKhau = ? "+
+		"SET TenNV = ?, MaPB = ?, MaQL = ?, NgayVaoLam = ?, NgaySinh = ?, GioiTinh = ?, LuongCB = ?, SdtNV = ?, Email = ?, CCCD = ?, TaiKhoan = ?, MatKhau = ? "+
 				"WHERE MaNV = ?";
 		try {
 			Date dateSinh = new Date(a.getNgaySinh().getYear(), a.getNgaySinh().getMonth(), a.getNgaySinh().getDate());

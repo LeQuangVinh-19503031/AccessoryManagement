@@ -50,7 +50,7 @@ public class DonHang_DAO {
 		ConnectDB.getConDB();
 		Connection con = ConnectDB.getCon();
 		PreparedStatement prepare = null;
-		String sql = "insert into DonDatHang values (?,?,?,?,?,?)";
+		String sql = "insert into DonHang values (?,?,?,?,?,?)";
 			try {
 				Date date1 = new Date(a.getNgayLapHD().getYear(), a.getNgayLapHD().getMonth(), a.getNgayLapHD().getDate());
 				Date date2 = new Date(a.getNgayGiao().getYear(), a.getNgayGiao().getMonth(), a.getNgayGiao().getDate());
@@ -81,8 +81,8 @@ public class DonHang_DAO {
 		ConnectDB.getConDB();
 		Connection con = ConnectDB.getCon();
 		PreparedStatement prepare = null;
-		String sql = "UPDATE DonDatHang "+
-		"SET MaKH = ?, MaNV = ?, NgayDatHang = ?, NgayGiaoHang = ?, NoiGiaoNhanHang = ? "+
+		String sql = "UPDATE DonHang "+
+		"SET MaKH = ?, MaNV = ?, NgayDatHang = ?, NgayGiaoHang = ?, DiaChiGiaoHang = ? "+
 				"WHERE MaHD = ?";
 			try {
 				Date date1 = new Date(a.getNgayLapHD().getYear(), a.getNgayLapHD().getMonth(), a.getNgayLapHD().getDate());
@@ -113,7 +113,7 @@ public class DonHang_DAO {
 		ConnectDB.getConDB();
 		Connection con = ConnectDB.getCon();
 		PreparedStatement prepare = null;
-		String sql = "DELETE FROM DonDatHang WHERE MaHD=?";
+		String sql = "DELETE FROM DonHang WHERE MaHD=?";
 			try {
 				prepare = con.prepareStatement(sql);
 				prepare.setString(1, maHD);
@@ -123,7 +123,6 @@ public class DonHang_DAO {
 			}finally {
 				try {
 					con.close();
-					System.out.println("xoa thanh cong");
 					return true;
 				} catch (SQLException e) {
 					e.printStackTrace();

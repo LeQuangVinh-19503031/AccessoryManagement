@@ -29,7 +29,7 @@ public class LinhKien_DAO {
 						resultSet.getLong(6),
 						resultSet.getLong(7),
 						resultSet.getInt(8),
-						resultSet.getString(10)
+						resultSet.getString(9)
 						));
 			}
 		} catch (SQLException e) {

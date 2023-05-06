@@ -90,9 +90,9 @@ public class JPanelDonHang extends JPanel implements DocumentListener, MouseList
 	private JPanel panel_11;
 	private JLabel lblNewLabel_11;
 	private JLabel lblNewLabel_12;
-	private JTextField textField;
+	private JTextField textMaKH_Loc;
 	private JLabel lblNewLabel_13;
-	private JTextField textField_1;
+	private JTextField textMaNV_Loc;
 
 	public JPanelDonHang() {
 	
@@ -101,13 +101,13 @@ public class JPanelDonHang extends JPanel implements DocumentListener, MouseList
 		
 		JPanel panelTitle = new JPanel();
 		panelTitle.setBackground(new Color(204, 204, 255));
-		panelTitle.setBounds(0, 0, 1285, 53);
+		panelTitle.setBounds(10, 0, 1266, 53);
 		add(panelTitle);
 		panelTitle.setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("ĐƠN HÀNG");
 		lblNewLabel.setVerticalAlignment(SwingConstants.BOTTOM);
-		lblNewLabel.setBounds(0, 0, 1285, 53);
+		lblNewLabel.setBounds(10, 0, 1256, 53);
 		lblNewLabel.setFont(new Font("Consolas", Font.BOLD, 30));
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		panelTitle.add(lblNewLabel);
@@ -182,10 +182,10 @@ public class JPanelDonHang extends JPanel implements DocumentListener, MouseList
 		lblNewLabel_12.setBounds(225, 20, 88, 13);
 		panel_6.add(lblNewLabel_12);
 		
-		textField = new JTextField();
-		textField.setColumns(10);
-		textField.setBounds(323, 9, 151, 31);
-		panel_6.add(textField);
+		textMaKH_Loc = new JTextField();
+		textMaKH_Loc.setColumns(10);
+		textMaKH_Loc.setBounds(323, 9, 151, 31);
+		panel_6.add(textMaKH_Loc);
 		
 		lblNewLabel_13 = new JLabel("Mã nhân viên");
 		lblNewLabel_13.setHorizontalAlignment(SwingConstants.CENTER);
@@ -193,10 +193,10 @@ public class JPanelDonHang extends JPanel implements DocumentListener, MouseList
 		lblNewLabel_13.setBounds(484, 20, 79, 13);
 		panel_6.add(lblNewLabel_13);
 		
-		textField_1 = new JTextField();
-		textField_1.setColumns(10);
-		textField_1.setBounds(573, 9, 140, 31);
-		panel_6.add(textField_1);
+		textMaNV_Loc = new JTextField();
+		textMaNV_Loc.setColumns(10);
+		textMaNV_Loc.setBounds(573, 9, 140, 31);
+		panel_6.add(textMaNV_Loc);
 		
 		textFieldTim.getDocument().addDocumentListener(this);
 		
@@ -330,7 +330,6 @@ public class JPanelDonHang extends JPanel implements DocumentListener, MouseList
 		panelThongTin.add(textFieldMaHD);
 		textFieldMaHD.setColumns(10);
 		
-		textFieldMaHD.getDocument().addDocumentListener(this);
 		
 		textFieldMaKhachHang = new JTextField();
 		textFieldMaKhachHang.setAlignmentY(Component.TOP_ALIGNMENT);
@@ -339,7 +338,6 @@ public class JPanelDonHang extends JPanel implements DocumentListener, MouseList
 		textFieldMaKhachHang.setBounds(368, 37, 343, 32);
 		panelThongTin.add(textFieldMaKhachHang);
 		
-		textFieldMaKhachHang.getDocument().addDocumentListener(this);
 		
 		textFieldMaNhanVien = new JTextField();
 		textFieldMaNhanVien.setAlignmentY(Component.TOP_ALIGNMENT);
@@ -348,7 +346,6 @@ public class JPanelDonHang extends JPanel implements DocumentListener, MouseList
 		textFieldMaNhanVien.setBounds(17, 104, 343, 32);
 		panelThongTin.add(textFieldMaNhanVien);
 		
-		textFieldMaNhanVien.getDocument().addDocumentListener(this);
 		
 		textFieldNgayGiao = new JTextField();
 		textFieldNgayGiao.setAlignmentY(Component.TOP_ALIGNMENT);
@@ -357,7 +354,6 @@ public class JPanelDonHang extends JPanel implements DocumentListener, MouseList
 		textFieldNgayGiao.setBounds(368, 105, 343, 32);
 		panelThongTin.add(textFieldNgayGiao);
 		
-		textFieldNgayGiao.getDocument().addDocumentListener(this);
 		
 		textFieldDiaChiGiaoHang = new JTextField();
 		textFieldDiaChiGiaoHang.setAlignmentY(Component.TOP_ALIGNMENT);
@@ -396,7 +392,6 @@ public class JPanelDonHang extends JPanel implements DocumentListener, MouseList
 		panelThongTin.add(lblMessMaHD);
 		lblMessMaHD.setForeground(new Color(255, 0, 0));
 		
-		textFieldDiaChiGiaoHang.getDocument().addDocumentListener(this);
 		
 		panel_8 = new JPanel();
 		panel_8.setBackground(new Color(192, 192, 192));
@@ -458,8 +453,8 @@ public class JPanelDonHang extends JPanel implements DocumentListener, MouseList
 		panelKhachHang.add(txtTenKH);
 		
 		txtEmailKH = new JTextField();
+		txtEmailKH.setPreferredSize(new Dimension(20, 19));
 		txtEmailKH.setEditable(false);
-		txtEmailKH.setColumns(10);
 		txtEmailKH.setBounds(77, 137, 210, 29);
 		panelKhachHang.add(txtEmailKH);
 		
@@ -547,6 +542,14 @@ public class JPanelDonHang extends JPanel implements DocumentListener, MouseList
 		
 		model = new ArrayList<DonHang>();
 		updateTable();
+
+		textFieldMaHD.getDocument().addDocumentListener(this);
+		textFieldMaKhachHang.getDocument().addDocumentListener(this);
+		textFieldMaNhanVien.getDocument().addDocumentListener(this);
+		textFieldNgayGiao.getDocument().addDocumentListener(this);
+		textFieldDiaChiGiaoHang.getDocument().addDocumentListener(this);
+		textMaKH_Loc.getDocument().addDocumentListener(this);
+		textMaNV_Loc.getDocument().addDocumentListener(this);
 		
 	}
 	
@@ -742,10 +745,9 @@ public class JPanelDonHang extends JPanel implements DocumentListener, MouseList
 							Boolean res = DonHang_DAO.updateDB(a);
 							con.disconect();
 							if(res) {
-								updateTable();
 								xoaTrang();
 								jTextFieldEditable(false);
-								JOptionPane.showMessageDialog(null, "Cập nhật thành công !", "Cập nhật", JOptionPane.PLAIN_MESSAGE);
+								updateTable();
 								this.setVisible(true);
 							}
 						}
@@ -831,6 +833,40 @@ public class JPanelDonHang extends JPanel implements DocumentListener, MouseList
 			}else
 				lblMessDiaChiGiaoHang.setText("Chưa đúng định dạng !");
 		}
+		else if(src.equals(textMaKH_Loc.getDocument())) {
+			modelTable.setRowCount(0);
+			for (DonHang a : model) {
+				if(a.getMaKH().toUpperCase().contains(textMaKH_Loc.getText().toUpperCase())) {
+					modelTable.addRow(new Object[] {
+							a.getMaHD(),
+							a.getMaKH(),
+							a.getMaNV(),
+							a.getNgayLapHD(),
+							a.getNgayGiao(),
+							a.getDiaChiGiaoHang().toUpperCase()
+					});
+				}
+			}
+			if(textMaKH_Loc.getText().equals(""))
+				updateTable();
+		}else if(src.equals(textMaNV_Loc.getDocument())) {
+			modelTable.setRowCount(0);
+			for (DonHang a : model) {
+				if(a.getMaNV().toUpperCase().contains(textMaNV_Loc.getText().toUpperCase())) {
+					System.out.println(1);
+					modelTable.addRow(new Object[] {
+							a.getMaHD(),
+							a.getMaKH(),
+							a.getMaNV(),
+							a.getNgayLapHD(),
+							a.getNgayGiao(),
+							a.getDiaChiGiaoHang().toUpperCase()
+					});
+				}
+			}
+			if(textMaNV_Loc.getText().equals(""))
+				updateTable();
+		}
 		
 		if(!textFieldDiaChiGiaoHang.isEditable()) {
 			lblMessMaHD.setText("");
@@ -886,6 +922,39 @@ public class JPanelDonHang extends JPanel implements DocumentListener, MouseList
 				lblMessDiaChiGiaoHang.setText("");
 			}else
 				lblMessDiaChiGiaoHang.setText("Chưa đúng định dạng !");
+		}else if(src.equals(textMaKH_Loc.getDocument())) {
+			modelTable.setRowCount(0);
+			for (DonHang a : model) {
+				if(a.getMaKH().toUpperCase().contains(textMaKH_Loc.getText().toUpperCase())) {
+					modelTable.addRow(new Object[] {
+							a.getMaHD(),
+							a.getMaKH(),
+							a.getMaNV(),
+							a.getNgayLapHD(),
+							a.getNgayGiao(),
+							a.getDiaChiGiaoHang().toUpperCase()
+					});
+				}
+			}
+			if(textMaKH_Loc.getText().equals(""))
+				updateTable();
+		}else if(src.equals(textMaNV_Loc.getDocument())) {
+			modelTable.setRowCount(0);
+			for (DonHang a : model) {
+				if(a.getMaNV().toUpperCase().contains(textMaNV_Loc.getText().toUpperCase())) {
+					System.out.println(1);
+					modelTable.addRow(new Object[] {
+							a.getMaHD(),
+							a.getMaKH(),
+							a.getMaNV(),
+							a.getNgayLapHD(),
+							a.getNgayGiao(),
+							a.getDiaChiGiaoHang().toUpperCase()
+					});
+				}
+			}
+			if(textMaNV_Loc.getText().equals(""))
+				updateTable();
 		}
 		
 		if(!textFieldDiaChiGiaoHang.isEditable()) {
@@ -921,13 +990,15 @@ public class JPanelDonHang extends JPanel implements DocumentListener, MouseList
 	
 	private boolean checkContainKH(String text) {
 		for (KhachHang a : listKH) {
-			if(a.getMa().equalsIgnoreCase(text)) {
+			if(a.getMa().toUpperCase().equalsIgnoreCase(text.toUpperCase())) {
 				txtMaKH.setText(a.getMa());
 				txtTenKH.setText(a.getTen());
 				txtSDTKH.setText(a.getSdt());
 				txtEmailKH.setText(a.getEmail());
 				txtDCKH.setText(a.getDiaChi());
 				return true;
+			}else {
+				continue;
 			}
 		}
 		return false;
@@ -942,13 +1013,14 @@ public class JPanelDonHang extends JPanel implements DocumentListener, MouseList
 		return false;
 	}
 
-	private void uploadDB_NV_KH() {
+	public void uploadDB_NV_KH() {
 		ConnectDB c = new ConnectDB();
 		c.connect();
 		listKH = KhachHang_DAO.getAllKhachHangFromDB();
 		listNV = NhanVien_DAO.getAllFromDB();
 		c.disconect();
 	}
+
 
 	@Override
 	public void changedUpdate(DocumentEvent e) {
@@ -990,6 +1062,38 @@ public class JPanelDonHang extends JPanel implements DocumentListener, MouseList
 				lblMessDiaChiGiaoHang.setText("");
 			}else
 				lblMessDiaChiGiaoHang.setText("Chưa đúng định dạng !");
+		}else if(src.equals(textMaKH_Loc.getDocument())) {
+			modelTable.setRowCount(0);
+			for (DonHang a : model) {
+				if(a.getMaKH().toUpperCase().contains(textMaKH_Loc.getText().toUpperCase())) {
+					modelTable.addRow(new Object[] {
+							a.getMaHD(),
+							a.getMaKH(),
+							a.getMaNV(),
+							a.getNgayLapHD(),
+							a.getNgayGiao(),
+							a.getDiaChiGiaoHang().toUpperCase()
+					});
+				}
+			}
+			if(textMaKH_Loc.getText().equals(""))
+				updateTable();
+		}else if(src.equals(textMaNV_Loc.getDocument())) {
+			modelTable.setRowCount(0);
+			for (DonHang a : model) {
+				if(a.getMaNV().toUpperCase().contains(textMaNV_Loc.getText().toUpperCase())) {
+					modelTable.addRow(new Object[] {
+							a.getMaHD(),
+							a.getMaKH(),
+							a.getMaNV(),
+							a.getNgayLapHD(),
+							a.getNgayGiao(),
+							a.getDiaChiGiaoHang().toUpperCase()
+					});
+				}
+			}
+			if(textMaNV_Loc.getText().equals(""))
+				updateTable();
 		}
 		
 		if(!textFieldDiaChiGiaoHang.isEditable()) {

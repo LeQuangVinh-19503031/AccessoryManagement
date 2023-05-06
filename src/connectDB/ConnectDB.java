@@ -32,9 +32,6 @@ public class ConnectDB {
 			con = DriverManager.getConnection(url, user, pass);
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}finally {
-			if(con!=null)
-				System.out.println("Dang nhap thanh cong");
 		}
 	}
 	
@@ -46,11 +43,5 @@ public class ConnectDB {
 				e.printStackTrace();
 			}
 		}
-	}
-	
-	public static void main(String[] args) {
-		ConnectDB connectDB = new ConnectDB();
-		connectDB.connect();
-		connectDB.disconect();
 	}
 }

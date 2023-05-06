@@ -68,19 +68,19 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import java.awt.event.MouseAdapter;
 
-public class JPanelNhanVien extends JPanel implements DocumentListener, MouseListener{
+public class JPanelNhanVien extends JPanel implements DocumentListener, MouseListener, ActionListener{
 	private JRadioButton buttonLocNam, buttonLocNu, buttonNam, buttonNu;
 	private ButtonGroup groupLoc, groupInput;
 	private JTextField textFieldMaNV;
 	private JTextField textFieldTenNV;
-	private JTextField textFieldDCNV;
+	private JTextField textFieldLuong;
 	private JTextField textField_LocMaNV;
 	private JTable table;
 	private DefaultTableModel modelTable =new DefaultTableModel(
 			new Object[][] {
 			},
 			new String[] {
-				"M\u00C3 NH\u00C2N VI\u00CAN", "H\u1ECC V\u00C0 T\u00CAN", "PH\u00D2NG BAN", "QU\u1EA2N L\u00DD", "NG\u00C0Y V\u00C0O L\u00C0M", "NG\u00C0Y SINH", "GI\u1EDAI T\u00CDNH", "\u0110\u1ECAA CH\u1EC8", "SDT", "EMAIL", "CCCD", "T\u00C0I KHO\u1EA2N", "M\u1EACT KH\u1EA8U"
+				"M\u00C3 NH\u00C2N VI\u00CAN", "H\u1ECC V\u00C0 T\u00CAN", "PH\u00D2NG BAN", "QU\u1EA2N L\u00DD", "NG\u00C0Y V\u00C0O L\u00C0M", "NG\u00C0Y SINH", "GI\u1EDAI T\u00CDNH", "L\u01AF\u01A0NG", "SDT", "EMAIL", "CCCD", "T\u00C0I KHO\u1EA2N", "M\u1EACT KH\u1EA8U"
 			}
 		);
 	private JTextField textFieldNamSinh;
@@ -89,8 +89,9 @@ public class JPanelNhanVien extends JPanel implements DocumentListener, MouseLis
 	private JTextField textFieldEmailNV;
 	private JTextField textFieldCCCD;
 	private JTextField textFieldLocTenNV;
-	private JLabel lblMessSDT, lblMessMaNV, lblMessMaQL, lblMessDiaChi, lblMessMaPB, lblMessTenNV, lblMessGT, lblMessNSNV, lblMessNgayVaoLam, lblMessCCCD;
+	private JLabel lblMessSDT, lblMessMaNV, lblMessMaQL, lblMessLuong, lblMessMaPB, lblMessTenNV, lblMessGT, lblMessNSNV, lblMessNgayVaoLam, lblMessCCCD;
 	private ArrayList<NhanVien> model;
+	private ArrayList<NhanVien> listFilter = new ArrayList<NhanVien>();
 	
 	private JLabel lblMessEmail;
 	private ArrayList<String> listPB;
@@ -103,7 +104,6 @@ public class JPanelNhanVien extends JPanel implements DocumentListener, MouseLis
 	private JButton btnCapNhat;
 	private JButton btnXoaTrang;
 	private JButton btnXoa;
-	private JButton btnThayDoiTaiKhoanMatKhau;
 	private JPanel panel_1;
 	private JLabel lblNewLabel_3;
 	private JPanel panel_chucnang;
@@ -118,23 +118,29 @@ public class JPanelNhanVien extends JPanel implements DocumentListener, MouseLis
 	private JComboBox<String> ccbPB_Loc = new JComboBox<String>();
 	private JComboBox<String> ccbPB_Input = new JComboBox<String>();
 	private JComboBox<String> ccbQL_Input = new JComboBox<String>();
+	private JTextField textFieldTaiKhoan;
+	private JTextField textFieldMatKhau;
+	private JLabel lblMessTaiKhoan;
+	private JLabel lblMatKhau;
+	private String phanQuyen = "";
+	private JRadioButton btnHuyGT;
 	/**
 	 * Create the panel.
 	 */
-	public JPanelNhanVien() {
+	public JPanelNhanVien(String phanQuyen) {
 		
 		setBackground(new Color(64, 224, 208));
 		setLayout(null);
 		
 		JPanel panelTitle = new JPanel();
 		panelTitle.setBackground(new Color(204, 204, 255));
-		panelTitle.setBounds(0, 0, 1285, 53);
+		panelTitle.setBounds(10, 0, 1261, 53);
 		add(panelTitle);
 		panelTitle.setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("NHÂN VIÊN");
 		lblNewLabel.setVerticalAlignment(SwingConstants.BOTTOM);
-		lblNewLabel.setBounds(0, 0, 1285, 53);
+		lblNewLabel.setBounds(0, 0, 1261, 53);
 		lblNewLabel.setAlignmentY(Component.TOP_ALIGNMENT);
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel.setHorizontalTextPosition(SwingConstants.CENTER);
@@ -157,18 +163,21 @@ public class JPanelNhanVien extends JPanel implements DocumentListener, MouseLis
 		
 		table = new JTable();
 		table.setModel(modelTable);
-		table.getColumnModel().getColumn(0).setPreferredWidth(85);
-		table.getColumnModel().getColumn(5).setPreferredWidth(66);
-		table.getColumnModel().getColumn(6).setPreferredWidth(58);
-		table.getColumnModel().getColumn(7).setPreferredWidth(100);
-		table.getColumnModel().getColumn(8).setPreferredWidth(63);
+		table.getColumnModel().getColumn(1).setPreferredWidth(85);
+		table.getColumnModel().getColumn(6).setPreferredWidth(66);
+		table.getColumnModel().getColumn(7).setPreferredWidth(58);
+		table.getColumnModel().getColumn(8).setPreferredWidth(100);
+		table.getColumnModel().getColumn(9).setPreferredWidth(63);
 		scrollPane.setViewportView(table);
 		
 		panel_1 = new JPanel();
+		FlowLayout flowLayout_2 = (FlowLayout) panel_1.getLayout();
+		flowLayout_2.setAlignment(FlowLayout.LEFT);
 		panel_1.setBackground(new Color(255, 69, 0));
 		panelTable.add(panel_1, BorderLayout.NORTH);
 		
-		lblNewLabel_3 = new JLabel("New label");
+		lblNewLabel_3 = new JLabel("DANH SÁCH NHÂN VIÊN");
+		lblNewLabel_3.setFont(new Font("Tahoma", Font.BOLD, 12));
 		panel_1.add(lblNewLabel_3);
 		groupInput = new ButtonGroup();
 		
@@ -177,7 +186,7 @@ public class JPanelNhanVien extends JPanel implements DocumentListener, MouseLis
 		table.addMouseListener(this);
 		
 		panel = new JPanel();
-		panel.setBounds(10, 298, 263, 396);
+		panel.setBounds(10, 298, 263, 385);
 		add(panel);
 		panel.setLayout(new BorderLayout(0, 0));
 		
@@ -212,18 +221,20 @@ public class JPanelNhanVien extends JPanel implements DocumentListener, MouseLis
 		
 		btnXoaTrang = new JButton("");
 		btnXoaTrang.setIcon(new ImageIcon(JPanelNhanVien.class.getResource("/img/erase_36px.png")));
-		btnXoaTrang.setBounds(10, 90, 60, 60);
+		btnXoaTrang.setBounds(10, 80, 60, 60);
 		panel_chucnang.add(btnXoaTrang);
 		btnXoaTrang.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				xoaTrang();
+				jTextFieldEnable(true);
 			}
+
 		});
 		btnXoaTrang.setPreferredSize(new Dimension(140, 50));
 		
 		btnCapNhat = new JButton("");
 		btnCapNhat.setIcon(new ImageIcon(JPanelNhanVien.class.getResource("/img/update_36px.png")));
-		btnCapNhat.setBounds(170, 10, 60, 60);
+		btnCapNhat.setBounds(80, 80, 60, 60);
 		panel_chucnang.add(btnCapNhat);
 		btnCapNhat.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -239,18 +250,21 @@ public class JPanelNhanVien extends JPanel implements DocumentListener, MouseLis
 		btnCapNhat.setToolTipText("Cập nhật thông tin");
 		
 		btnXoa = new JButton("");
+		btnXoa.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(table.getSelectedRow()>0)
+					xoa(table.getSelectedRow());
+				else
+					JOptionPane.showMessageDialog(null, e);
+			}
+		});
 		btnXoa.setIcon(new ImageIcon(JPanelNhanVien.class.getResource("/img/minus_36px.png")));
-		btnXoa.setBounds(90, 10, 60, 60);
+		btnXoa.setBounds(80, 10, 60, 60);
 		panel_chucnang.add(btnXoa);
 		btnXoa.setPreferredSize(new Dimension(140, 50));
 		
-		btnThayDoiTaiKhoanMatKhau = new JButton("CẬP NHẬT MẬT KHẨU");
-		btnThayDoiTaiKhoanMatKhau.setBounds(90, 90, 60, 60);
-		panel_chucnang.add(btnThayDoiTaiKhoanMatKhau);
-		btnThayDoiTaiKhoanMatKhau.setPreferredSize(new Dimension(140, 50));
-		
 		panel_5 = new JPanel();
-		panel_5.setBounds(0, 160, 263, 210);
+		panel_5.setBounds(0, 150, 263, 200);
 		panel_chucnang.add(panel_5);
 		panel_5.setBackground(new Color(192, 192, 192));
 		panel_5.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(0, 0, 0), new Color(128, 128, 128)), "L\u1ECCC", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
@@ -266,12 +280,13 @@ public class JPanelNhanVien extends JPanel implements DocumentListener, MouseLis
 		textField_LocMaNV.setBounds(78, 10, 175, 32);
 		panel_5.add(textField_LocMaNV);
 		textField_LocMaNV.setColumns(10);
+		textField_LocMaNV.getDocument().addDocumentListener(this);
 		
 		textFieldLocTenNV = new JTextField();
 		textFieldLocTenNV.setBounds(78, 50, 175, 32);
 		panel_5.add(textFieldLocTenNV);
 		textFieldLocTenNV.setColumns(10);
-		
+		textFieldLocTenNV.getDocument().addDocumentListener(this);
 		JLabel lblNewLabel_1_1 = new JLabel("TÊN");
 		lblNewLabel_1_1.setBounds(10, 50, 46, 32);
 		panel_5.add(lblNewLabel_1_1);
@@ -297,14 +312,14 @@ public class JPanelNhanVien extends JPanel implements DocumentListener, MouseLis
 		lblNewLabel_1_3.setHorizontalAlignment(SwingConstants.LEFT);
 		
 		buttonLocNam = new JRadioButton("NAM");
-		buttonLocNam.setBounds(123, 168, 58, 32);
+		buttonLocNam.setBounds(78, 168, 58, 26);
 		panel_5.add(buttonLocNam);
 		buttonLocNam.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		buttonLocNam.setBackground(new Color(192, 192, 192));
 		groupLoc.add(buttonLocNam);
 		
 		buttonLocNu = new JRadioButton("NỮ");
-		buttonLocNu.setBounds(195, 167, 58, 32);
+		buttonLocNu.setBounds(138, 167, 58, 27);
 		panel_5.add(buttonLocNu);
 		buttonLocNu.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		buttonLocNu.setBackground(new Color(192, 192, 192));
@@ -316,9 +331,16 @@ public class JPanelNhanVien extends JPanel implements DocumentListener, MouseLis
 		ccbPB_Loc.setBounds(113, 132, 140, 30);
 		panel_5.add(ccbPB_Loc);
 		
+		btnHuyGT = new JRadioButton("HỦY");
+		btnHuyGT.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		btnHuyGT.setBackground(Color.LIGHT_GRAY);
+		btnHuyGT.setBounds(198, 167, 55, 27);
+		panel_5.add(btnHuyGT);
+		groupLoc.add(btnHuyGT);
+		
 		panel_3 = new JPanel();
 		panel_3.setBackground(new Color(192, 192, 192));
-		panel_3.setBounds(283, 298, 992, 396);
+		panel_3.setBounds(283, 298, 992, 385);
 		add(panel_3);
 		panel_3.setLayout(new BorderLayout(0, 0));
 		
@@ -343,35 +365,35 @@ public class JPanelNhanVien extends JPanel implements DocumentListener, MouseLis
 		lblNewLabel_2.setHorizontalAlignment(SwingConstants.LEFT);
 		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		lblNewLabel_2.setAlignmentY(0.0f);
-		lblNewLabel_2.setBounds(11, 32, 109, 32);
+		lblNewLabel_2.setBounds(21, 32, 100, 32);
 		panelThongTin.add(lblNewLabel_2);
 		
 		JLabel lblNewLabel_2_1 = new JLabel("Họ và tên");
 		lblNewLabel_2_1.setHorizontalAlignment(SwingConstants.LEFT);
 		lblNewLabel_2_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		lblNewLabel_2_1.setAlignmentY(0.0f);
-		lblNewLabel_2_1.setBounds(11, 74, 81, 32);
+		lblNewLabel_2_1.setBounds(21, 74, 81, 32);
 		panelThongTin.add(lblNewLabel_2_1);
 		
 		JLabel lblNewLabel_2_2 = new JLabel("Mã phòng ban");
 		lblNewLabel_2_2.setHorizontalAlignment(SwingConstants.LEFT);
 		lblNewLabel_2_2.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		lblNewLabel_2_2.setAlignmentY(0.0f);
-		lblNewLabel_2_2.setBounds(310, 32, 121, 32);
+		lblNewLabel_2_2.setBounds(320, 32, 109, 32);
 		panelThongTin.add(lblNewLabel_2_2);
 		
-		JLabel lblNewLabel_2_2_1 = new JLabel("Địa chỉ");
+		JLabel lblNewLabel_2_2_1 = new JLabel("Lương");
 		lblNewLabel_2_2_1.setHorizontalAlignment(SwingConstants.LEFT);
 		lblNewLabel_2_2_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		lblNewLabel_2_2_1.setAlignmentY(0.0f);
-		lblNewLabel_2_2_1.setBounds(11, 295, 55, 32);
+		lblNewLabel_2_2_1.setBounds(677, 148, 55, 32);
 		panelThongTin.add(lblNewLabel_2_2_1);
 		
 		JLabel lblNewLabel_2_2_2 = new JLabel("Mã quản lý");
 		lblNewLabel_2_2_2.setHorizontalAlignment(SwingConstants.LEFT);
 		lblNewLabel_2_2_2.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		lblNewLabel_2_2_2.setAlignmentY(0.0f);
-		lblNewLabel_2_2_2.setBounds(665, 35, 88, 32);
+		lblNewLabel_2_2_2.setBounds(677, 32, 88, 32);
 		panelThongTin.add(lblNewLabel_2_2_2);
 		
 		textFieldMaNV = new JTextField();
@@ -388,22 +410,22 @@ public class JPanelNhanVien extends JPanel implements DocumentListener, MouseLis
 		textFieldTenNV.setBounds(11, 106, 280, 32);
 		panelThongTin.add(textFieldTenNV);
 		
-		textFieldDCNV = new JTextField();
-		textFieldDCNV.setColumns(10);
-		textFieldDCNV.setAlignmentY(0.0f);
-		textFieldDCNV.setAlignmentX(0.0f);
-		textFieldDCNV.setBounds(11, 326, 600, 32);
-		panelThongTin.add(textFieldDCNV);
+		textFieldLuong = new JTextField();
+		textFieldLuong.setColumns(10);
+		textFieldLuong.setAlignmentY(0.0f);
+		textFieldLuong.setAlignmentX(0.0f);
+		textFieldLuong.setBounds(665, 179, 289, 32);
+		panelThongTin.add(textFieldLuong);
 		
 		lblMessMaQL = new JLabel("");
 		lblMessMaQL.setForeground(Color.RED);
-		lblMessMaQL.setBounds(667, 3, 306, 32);
+		lblMessMaQL.setBounds(667, 0, 306, 32);
 		panelThongTin.add(lblMessMaQL);
 		
-		lblMessDiaChi = new JLabel("");
-		lblMessDiaChi.setForeground(Color.RED);
-		lblMessDiaChi.setBounds(76, 295, 535, 32);
-		panelThongTin.add(lblMessDiaChi);
+		lblMessLuong = new JLabel("");
+		lblMessLuong.setForeground(Color.RED);
+		lblMessLuong.setBounds(730, 148, 224, 32);
+		panelThongTin.add(lblMessLuong);
 		
 		lblMessMaPB = new JLabel("");
 		lblMessMaPB.setForeground(Color.RED);
@@ -426,21 +448,21 @@ public class JPanelNhanVien extends JPanel implements DocumentListener, MouseLis
 		
 		lblMessGT = new JLabel("");
 		lblMessGT.setForeground(Color.RED);
-		lblMessGT.setBounds(675, 74, 308, 32);
+		lblMessGT.setBounds(752, 74, 231, 32);
 		panelThongTin.add(lblMessGT);
 		
 		JLabel lblNewLabel_2_1_1 = new JLabel("Ngày sinh");
 		lblNewLabel_2_1_1.setHorizontalAlignment(SwingConstants.LEFT);
 		lblNewLabel_2_1_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		lblNewLabel_2_1_1.setAlignmentY(0.0f);
-		lblNewLabel_2_1_1.setBounds(11, 148, 81, 32);
+		lblNewLabel_2_1_1.setBounds(21, 148, 81, 32);
 		panelThongTin.add(lblNewLabel_2_1_1);
 		
 		JLabel lblNewLabel_2_2_1_1 = new JLabel("Giới tính");
 		lblNewLabel_2_2_1_1.setHorizontalAlignment(SwingConstants.LEFT);
 		lblNewLabel_2_2_1_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		lblNewLabel_2_2_1_1.setAlignmentY(0.0f);
-		lblNewLabel_2_2_1_1.setBounds(665, 106, 81, 32);
+		lblNewLabel_2_2_1_1.setBounds(677, 74, 71, 32);
 		panelThongTin.add(lblNewLabel_2_2_1_1);
 		
 		lblMessNSNV = new JLabel("");
@@ -463,7 +485,7 @@ public class JPanelNhanVien extends JPanel implements DocumentListener, MouseLis
 		lblNewLabel_2_2_2_1.setHorizontalAlignment(SwingConstants.LEFT);
 		lblNewLabel_2_2_2_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		lblNewLabel_2_2_2_1.setAlignmentY(0.0f);
-		lblNewLabel_2_2_2_1.setBounds(307, 148, 109, 32);
+		lblNewLabel_2_2_2_1.setBounds(320, 148, 109, 32);
 		panelThongTin.add(lblNewLabel_2_2_2_1);
 		
 		lblMessNgayVaoLam = new JLabel("");
@@ -499,14 +521,14 @@ public class JPanelNhanVien extends JPanel implements DocumentListener, MouseLis
 		lblNewLabel_2_2_1_2.setHorizontalAlignment(SwingConstants.LEFT);
 		lblNewLabel_2_2_1_2.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		lblNewLabel_2_2_1_2.setAlignmentY(0.0f);
-		lblNewLabel_2_2_1_2.setBounds(310, 74, 55, 32);
+		lblNewLabel_2_2_1_2.setBounds(320, 74, 48, 32);
 		panelThongTin.add(lblNewLabel_2_2_1_2);
 		
 		JLabel lblNewLabel_2_1_2 = new JLabel("Số điện thoại");
 		lblNewLabel_2_1_2.setHorizontalAlignment(SwingConstants.LEFT);
 		lblNewLabel_2_1_2.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		lblNewLabel_2_1_2.setAlignmentY(0.0f);
-		lblNewLabel_2_1_2.setBounds(310, 221, 100, 32);
+		lblNewLabel_2_1_2.setBounds(319, 221, 100, 32);
 		panelThongTin.add(lblNewLabel_2_1_2);
 		
 		textFieldCCCD = new JTextField();
@@ -520,25 +542,25 @@ public class JPanelNhanVien extends JPanel implements DocumentListener, MouseLis
 		lblNewLabel_2_2_1_1_1.setHorizontalAlignment(SwingConstants.LEFT);
 		lblNewLabel_2_2_1_1_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		lblNewLabel_2_2_1_1_1.setAlignmentY(0.0f);
-		lblNewLabel_2_2_1_1_1.setBounds(11, 222, 48, 32);
+		lblNewLabel_2_2_1_1_1.setBounds(21, 221, 48, 32);
 		panelThongTin.add(lblNewLabel_2_2_1_1_1);
 		
 		lblMessCCCD = new JLabel("");
 		lblMessCCCD.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		lblMessCCCD.setForeground(Color.RED);
-		lblMessCCCD.setBounds(63, 222, 228, 32);
+		lblMessCCCD.setBounds(67, 222, 224, 32);
 		panelThongTin.add(lblMessCCCD);
 		
 		buttonNam = new JRadioButton("NAM"); 
 		buttonNam.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		buttonNam.setBackground(new Color(192, 192, 192));
-		buttonNam.setBounds(796, 105, 81, 32);
+		buttonNam.setBounds(752, 106, 81, 32);
 		panelThongTin.add(buttonNam);
 		
 		buttonNu = new JRadioButton("NỮ");
 		buttonNu.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		buttonNu.setBackground(new Color(192, 192, 192));
-		buttonNu.setBounds(909, 105, 63, 32);
+		buttonNu.setBounds(853, 104, 63, 32);
 		panelThongTin.add(buttonNu);
 		groupInput.add(buttonNam);
 		groupInput.add(buttonNu);
@@ -577,29 +599,131 @@ public class JPanelNhanVien extends JPanel implements DocumentListener, MouseLis
 		comboBoxNgayVaoLam.setBounds(307, 178, 81, 33);
 		panelThongTin.add(comboBoxNgayVaoLam);
 		
-		ccbPB_Input.setBounds(420, 32, 191, 32);
+		ccbPB_Input.setBounds(428, 32, 183, 32);
 		panelThongTin.add(ccbPB_Input);
 		
-		ccbQL_Input.setBounds(763, 32, 191, 32);
+		ccbQL_Input.setBounds(763, 29, 191, 32);
 		panelThongTin.add(ccbQL_Input);
 		
-		JPanel panel_6 = new JPanel();
-		panel_6.setBounds(675, 179, 170, 130);
-		panelThongTin.add(panel_6);
+		JLabel lblNewLabel_6 = new JLabel("Tài khoản");
+		lblNewLabel_6.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblNewLabel_6.setBounds(677, 230, 78, 23);
+		panelThongTin.add(lblNewLabel_6);
+		
+		textFieldTaiKhoan = new JTextField();
+		textFieldTaiKhoan.setBounds(665, 253, 289, 32);
+		panelThongTin.add(textFieldTaiKhoan);
+		textFieldTaiKhoan.setColumns(10);
+		
+		lblMessTaiKhoan = new JLabel("");
+		lblMessTaiKhoan.setForeground(new Color(255, 0, 0));
+		lblMessTaiKhoan.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		lblMessTaiKhoan.setBounds(753, 230, 201, 23);
+		panelThongTin.add(lblMessTaiKhoan);
+		
+		JLabel lblNewLabel_6_1 = new JLabel("Mật khẩu");
+		lblNewLabel_6_1.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		lblNewLabel_6_1.setBounds(677, 295, 78, 23);
+		panelThongTin.add(lblNewLabel_6_1);
+		
+		lblMatKhau = new JLabel("");
+		lblMatKhau.setForeground(Color.RED);
+		lblMatKhau.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		lblMatKhau.setBounds(753, 295, 201, 23);
+		panelThongTin.add(lblMatKhau);
+		
+		textFieldMatKhau = new JTextField();
+		textFieldMatKhau.setColumns(10);
+		textFieldMatKhau.setBounds(665, 318, 289, 32);
+		panelThongTin.add(textFieldMatKhau);
 		textFieldNamSinh.getDocument().addDocumentListener(this);
 		
 		textFieldMaNV.getDocument().addDocumentListener(this);
 		textFieldTenNV.getDocument().addDocumentListener(this);
-		textFieldNamVaoLam.getDocument().addDocumentListener(this);
 		textFieldCCCD.getDocument().addDocumentListener(this);
-		textFieldDCNV.getDocument().addDocumentListener(this);
+		textFieldLuong.getDocument().addDocumentListener(this);
 		textFieldEmailNV.getDocument().addDocumentListener(this);
 		textFieldSDTNV.getDocument().addDocumentListener(this);
+		textFieldMatKhau.getDocument().addDocumentListener(this);
+		textFieldTaiKhoan.getDocument().addDocumentListener(this);
+		textFieldNamVaoLam.getDocument().addDocumentListener(this);
+		textFieldNamSinh.getDocument().addDocumentListener(this);
 		
 		allUpdateOfPanel();
+
+		ccbQL_Loc.addActionListener(this);
+		ccbPB_Loc.addActionListener(this);
+		textField_LocMaNV.getDocument().addDocumentListener(this);
+		textFieldLocTenNV.getDocument().addDocumentListener(this);
+		btnHuyGT.addMouseListener(this);
+		buttonLocNam.addMouseListener(this);
+		buttonLocNu.addMouseListener(this);
+		
+		if(phanQuyen.equals("NSU")) {
+			btnCapNhat.setEnabled(true);
+			btnThem.setEnabled(true);
+			btnXoa.setEnabled(true);
+			btnXoaTrang.setEnabled(true);
+		}else {
+			btnCapNhat.setEnabled(false);
+			btnThem.setEnabled(false);
+			btnXoa.setEnabled(false);
+			btnXoaTrang.setEnabled(false);
+		}
+
 		this.setVisible(true);
+		
 	}
 	
+	protected void xoa(int n) {
+		DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy");  
+		LocalDateTime now = LocalDateTime.now();
+		NhanVien a = new NhanVien();	
+		try {
+			
+			String ngayVaoLam = comboBoxNgayVaoLam.getSelectedItem()+"-"+comboBoxThangVaoLam.getSelectedItem()+"-"+textFieldNamVaoLam.getText();
+			String ngaySinh = comboBoxNgaySinh.getSelectedItem()+"-"+comboBoxThangSinh.getSelectedItem()+"-"+textFieldNamSinh.getText();
+			a.setMa(textFieldMaNV.getText().toUpperCase());
+			a.setTen(textFieldTenNV.getText().toUpperCase());
+			a.setMaPB(ccbPB_Input.getSelectedItem()+"".toUpperCase());
+			a.setMaQL(ccbQL_Input.getSelectedItem()+"".toUpperCase());
+			a.setNgayVaoLam(df.parse(ngayVaoLam));
+			a.setNgaySinh(df.parse(ngaySinh));
+			a.setLuongCB(Integer.parseInt(textFieldLuong.getText()));
+			a.setDienThoai(textFieldSDTNV.getText().toUpperCase());
+			a.setEmail(textFieldEmailNV.getText());
+			a.setCccd(textFieldCCCD.getText().toUpperCase());
+			a.setUser(textFieldTaiKhoan.getText());
+			a.setPass(textFieldMatKhau.getText());
+			if(buttonNam.isSelected())
+				a.setGioiTinh("NAM");
+			else
+				a.setGioiTinh("NỮ");
+			
+		} catch (Exception e) {
+			a = null;
+			e.printStackTrace();
+		} finally {
+			int choose = JOptionPane.showConfirmDialog(null, "Xóa nhân viên "+a.getMa(), "Xóa", JOptionPane.YES_NO_OPTION);
+			if(choose == JOptionPane.YES_OPTION) {
+				if(a!=null) {
+					ConnectDB con = new ConnectDB();
+					con.connect();
+					boolean res = NhanVien_DAO.removeNV(a);
+					con.disconect();
+					if(res) {
+						updateTable();
+						xoaTrang();
+					}else {
+						JOptionPane.showMessageDialog(null, "XÓA THẤT BẠI !");
+					}
+				}
+			}
+		}
+		
+	}
+
 	private void allUpdateOfPanel() {
 		updateTable();
 		updateComboboxPB();
@@ -607,84 +731,73 @@ public class JPanelNhanVien extends JPanel implements DocumentListener, MouseLis
 	}
 
 	protected void capnhatNV(int n) {
-		if(textFieldCCCD.isEnabled()) {
 			
 			DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
 			DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy");  
 			LocalDateTime now = LocalDateTime.now();
 			NhanVien a = new NhanVien();
-			if(!textFieldMaNV.isEditable()) {	
-				xoaTrang();
-				jTextFieldEditable(true);
-				this.textFieldMaNV.setEditable(true);
+			if(!textFieldCCCD.isEnabled()) {	
+				jTextFieldEnable(true);
+				this.textFieldMaNV.setEnabled(false);
 			}else {
-				if(checkfieldHopLe()) {
-					jTextFieldEditable(false);
+				if(checkfieldHopLe()) 
 					try {
-						
+					
 						String ngayVaoLam = comboBoxNgayVaoLam.getSelectedItem()+"-"+comboBoxThangVaoLam.getSelectedItem()+"-"+textFieldNamVaoLam.getText();
 						String ngaySinh = comboBoxNgaySinh.getSelectedItem()+"-"+comboBoxThangSinh.getSelectedItem()+"-"+textFieldNamSinh.getText();
-						
 						a.setMa(textFieldMaNV.getText().toUpperCase());
 						a.setTen(textFieldTenNV.getText().toUpperCase());
 						a.setMaPB(ccbPB_Input.getSelectedItem()+"".toUpperCase());
 						a.setMaQL(ccbQL_Input.getSelectedItem()+"".toUpperCase());
 						a.setNgayVaoLam(df.parse(ngayVaoLam));
 						a.setNgaySinh(df.parse(ngaySinh));
-						a.setLuongCB(Integer.parseInt(textFieldDCNV.getText()));
+						a.setLuongCB(Integer.parseInt(textFieldLuong.getText()));
 						a.setDienThoai(textFieldSDTNV.getText().toUpperCase());
 						a.setEmail(textFieldEmailNV.getText());
 						a.setCccd(textFieldCCCD.getText().toUpperCase());
+						a.setUser(textFieldTaiKhoan.getText());
+						a.setPass(textFieldMatKhau.getText());
 						if(buttonNam.isSelected())
 							a.setGioiTinh("NAM");
 						else
 							a.setGioiTinh("NỮ");
-						a.setUser("");
-						a.setPass("");
 
 					} catch (Exception e) {
 						a = null;
 						e.printStackTrace();
 					} finally {
-						if(a!=null) {
-							ConnectDB con = new ConnectDB();
-							con.connect();
-							boolean res = NhanVien_DAO.updateNV(a);
-							con.disconect();
-							if(res) {
-								updateTable();
-								xoaTrang();
-								table.setRowSelectionInterval(n, n);
-							}else {
-								JOptionPane.showMessageDialog(null, "CẬP NHẬT THẤT BẠI");
-							}
+						int choose = JOptionPane.showConfirmDialog(null, "Cập nhật nhân viên "+a.getMa(), "Cập nhật", JOptionPane.YES_NO_OPTION);
+						if(choose == JOptionPane.YES_OPTION) {
+							if(a!=null) {
+								ConnectDB con = new ConnectDB();
+								con.connect();
+								boolean res = NhanVien_DAO.updateNV(a);
+								con.disconect();
+								if(res) {
+									updateTable();
+									xoaTrang();
+									table.setRowSelectionInterval(n, n);
+								}else {
+									JOptionPane.showMessageDialog(null, "CẬP NHẬT THẤT BẠI");
+								}
 						}
+						jTextFieldEnable(false);
+						this.textFieldMaNV.setEnabled(true);
 					}
 				}
-			}
-			
-			btnThem.setEnabled(true);
-			
-		}else {
-			disableField(true);
-			this.textFieldMaNV.setEditable(false);
-			btnThem.setEnabled(false);
 		}
-		
 	}
 
 	protected void themNhanVien() {
 		DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
-		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy");  
-		LocalDateTime now = LocalDateTime.now();
 		NhanVien a = new NhanVien();
-		if(!textFieldMaNV.isEditable()) {	
+		if(!textFieldMaNV.isEnabled()) {	
 			xoaTrang();
-			jTextFieldEditable(true);
+			jTextFieldEnable(true);
 			this.textFieldMaNV.setEditable(true);
 		}else {
 			if(checkfieldHopLe()) {
-				jTextFieldEditable(false);
+				jTextFieldEnable(false);
 				try {
 					
 					String ngayVaoLam = comboBoxNgayVaoLam.getSelectedItem()+"-"+comboBoxThangVaoLam.getSelectedItem()+"-"+textFieldNamVaoLam.getText();
@@ -696,16 +809,17 @@ public class JPanelNhanVien extends JPanel implements DocumentListener, MouseLis
 					a.setMaQL(ccbQL_Input.getSelectedItem()+"".toUpperCase());
 					a.setNgayVaoLam(df.parse(ngayVaoLam));
 					a.setNgaySinh(df.parse(ngaySinh));
-					a.setLuongCB(Integer.parseInt(textFieldDCNV.getText()));
+					a.setLuongCB(Integer.parseInt(textFieldLuong.getText()));
 					a.setDienThoai(textFieldSDTNV.getText().toUpperCase());
 					a.setEmail(textFieldEmailNV.getText());
 					a.setCccd(textFieldCCCD.getText().toUpperCase());
+					a.setUser(textFieldTaiKhoan.getText());
+					a.setPass(textFieldMatKhau.getText());
+					
 					if(buttonNam.isSelected())
 						a.setGioiTinh("NAM");
 					else
 						a.setGioiTinh("NỮ");
-					a.setUser("");
-					a.setPass("");
 
 				} catch (Exception e) {
 					a = null;
@@ -719,7 +833,7 @@ public class JPanelNhanVien extends JPanel implements DocumentListener, MouseLis
 						if(res) {
 							updateTable();
 							xoaTrang();
-							jTextFieldEditable(false);
+							jTextFieldEnable(false);
 							table.setRowSelectionInterval(2,2);
 							this.setVisible(true);							
 							
@@ -750,52 +864,68 @@ public class JPanelNhanVien extends JPanel implements DocumentListener, MouseLis
 		return true;
 	}
 
-	private void jTextFieldEditable(boolean choose) {
-		textFieldMaNV.setEditable(choose);
-		textFieldTenNV.setEditable(choose);
-		ccbPB_Input.setEditable(choose);
-		ccbQL_Input.setEditable(choose);
-		textFieldNamVaoLam.setEditable(choose);
-		textFieldNamSinh.setEditable(choose);
-		textFieldDCNV.setEditable(choose);
-		textFieldSDTNV.setEditable(choose);
-		textFieldEmailNV.setEditable(choose);
-		textFieldCCCD.setEditable(choose);
-				
-		buttonNam.setRequestFocusEnabled(choose);
-		buttonNu.setRequestFocusEnabled(choose);
+	private void jTextFieldEnable(boolean choose) {
+		textFieldMaNV.setEnabled(choose);
+		textFieldTenNV.setEnabled(choose);
+		ccbPB_Input.setEnabled(choose);
+		ccbQL_Input.setEnabled(choose);
+		textFieldNamVaoLam.setEnabled(choose);
+		textFieldNamSinh.setEnabled(choose);
+		textFieldLuong.setEnabled(choose);
+		textFieldSDTNV.setEnabled(choose);
+		textFieldEmailNV.setEnabled(choose);
+		textFieldCCCD.setEnabled(choose);
+		textFieldMatKhau.setEnabled(choose);
+		textFieldTaiKhoan.setEnabled(choose);
+		buttonNam.setEnabled(choose);
+		buttonNu.setEnabled(choose);
 		
-		comboBoxNgaySinh.setEditable(choose);
-		comboBoxNgayVaoLam.setEditable(choose);
-		comboBoxThangSinh.setEditable(choose);
-		comboBoxThangVaoLam.setEditable(choose);
+		comboBoxNgaySinh.setEnabled(choose);
+		comboBoxThangSinh.setEnabled(choose);
+		textFieldNamSinh.setEnabled(choose);
 		
+		comboBoxNgayVaoLam.setEnabled(choose);
+		comboBoxThangVaoLam.setEnabled(choose);
+		textFieldNamVaoLam.setEnabled(choose);
 	}
 	private void xoaTrang() {
 		textField_LocMaNV.setText("");
 		textFieldCCCD.setText("");
-		textFieldDCNV.setText("");
+		textFieldLuong.setText("");
 		textFieldEmailNV.setText("");
 		textFieldLocTenNV.setText("");
 		textFieldMaNV.setText("");
 		textFieldSDTNV.setText("");
 		textFieldTenNV.setText("");
-		
+		textFieldTaiKhoan.setText("");
+		textFieldMatKhau.setText("");
+		comboBoxNgaySinh.setSelectedIndex(0);
+		comboBoxThangSinh.setSelectedIndex(0);
+		comboBoxNgayVaoLam.setSelectedIndex(0);
+		comboBoxThangVaoLam.setSelectedIndex(0);
+		ccbPB_Input.setSelectedIndex(-1);
+		ccbQL_Input.setSelectedIndex(-1);
+		textFieldNamSinh.setText("");
+		textFieldNamVaoLam.setText("");
 		groupInput.clearSelection();
 		groupLoc.clearSelection();
 		
-		ccbPB_Input.setSelectedIndex(-1);
-		ccbQL_Input.setSelectedIndex(-1);
-		
-		comboBoxNgaySinh.setSelectedIndex(0);
-		comboBoxThangSinh.setSelectedIndex(0);
-		textFieldNamSinh.setText("");
-		
-		comboBoxNgayVaoLam.setSelectedIndex(0);
-		comboBoxThangVaoLam.setSelectedIndex(0);
-		textFieldNamVaoLam.setText("");
-		
+		lblMessTaiKhoan.setText("");
+		lblMatKhau.setText("");
+		lblMessCCCD.setText("");
+		lblMessLuong.setText("");
+		lblMessEmail.setText("");
+		lblMessGT.setText("");
+		lblMessMaNV.setText("");
+		lblMessMaPB.setText("");
+		lblMessMaQL.setText("");
+		lblMessNgayVaoLam.setText("");
+		lblMessNSNV.setText("");
+		lblMessSDT.setText("");
+		lblMessTenNV.setText("");
+
 	}
+	
 	private void updateTable() {
 		DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
 		uploadFromDB();
@@ -803,14 +933,14 @@ public class JPanelNhanVien extends JPanel implements DocumentListener, MouseLis
 		for (NhanVien a : model) {
 			
 			modelTable.addRow(new Object[] {
-					a.getMa(),
-					a.getTen(),
-					a.getMaPB(),
-					a.getMaQL(),
+					a.getMa().toUpperCase(),
+					a.getTen().toUpperCase(),
+					a.getMaPB().toUpperCase(),
+					a.getMaQL().toUpperCase(),
 					df.format(a.getNgayVaoLam()),
 					df.format(a.getNgaySinh()),
-					a.getGioiTinh(),
-					a.getLuongCB(),
+					a.getGioiTinh().toUpperCase(),
+					a.getLuongCB()+"",
 					a.getDienThoai(),
 					a.getEmail(),
 					a.getCccd(),
@@ -838,6 +968,8 @@ public class JPanelNhanVien extends JPanel implements DocumentListener, MouseLis
 		
 		ccbQL_Input.removeAllItems();
 		ccbQL_Loc.removeAllItems();
+		ccbPB_Loc.addItem("");
+		ccbQL_Loc.addItem("");
 		for (String string : listQL) {
 			ccbQL_Input.addItem(string);
 			ccbQL_Loc.addItem(string);
@@ -852,43 +984,153 @@ public class JPanelNhanVien extends JPanel implements DocumentListener, MouseLis
 		model = NhanVien_DAO.getAllFromDB();
 		listPB = PhongBan_DAO.getAllIDDepartmentFromDB();
 		listQL = NhanVien_DAO.getAllMaNVFromDB();
+		listFilter = model;
 		c.disconect();
 		
 	}
 
 	@Override
-	public void insertUpdate(DocumentEvent e) {
-		
-//		textFieldNgayVaoLam.getDocument().addDocumentListener(this);
-//		textFieldNSNV.getDocument().addDocumentListener(this);
-//		textFieldCCCD.getDocument().addDocumentListener(this);
-//		textFieldDCNV.getDocument().addDocumentListener(this);
-//		textFieldEmailNV.getDocument().addDocumentListener(this);
-//		textFieldSDTNV.getDocument().addDocumentListener(this);		
+	public void insertUpdate(DocumentEvent e) {	
 		
 		Document src = e.getDocument();
 		String maNV = textFieldMaNV.getText();
 		String ten = textFieldTenNV.getText();
 		String email = textFieldEmailNV.getText();
 		String cccd = textFieldCCCD.getText();
-		String diachi = textFieldDCNV.getText();
+		String diachi = textFieldLuong.getText();
 		String sdt = textFieldSDTNV.getText();
+		String tk = textFieldTaiKhoan.getText();
+		String mk = textFieldMatKhau.getText();
+		String namVaoLam = textFieldNamVaoLam.getText();
+		String ns = textFieldNamSinh.getText();
+		
 		
 		if(textFieldCCCD.isEnabled()) {
 
 			if(src.equals(textFieldMaNV.getDocument()))
-				checkHopleMaNV(maNV);
-			
+				if(maNV.length()>0)
+					checkHopleMaNV(maNV);
+				else
+					lblMessMaNV.setText("");
 			else if(src.equals(textFieldTenNV.getDocument()))
 				checkHopLeTenNV(ten);
 			else if(src.equals(textFieldEmailNV.getDocument())) {
 				checkHopLeEmail(email);
 			}else if(src.equals(textFieldCCCD.getDocument()))
 				checkHopLeCCCD(cccd);
-			else if(src.equals(textFieldDCNV.getDocument()))
-				checkHopLeDC(diachi);
+			else if(src.equals(textFieldLuong.getDocument()))
+				checkHopLeLuong(diachi);
 			else if(src.equals(textFieldSDTNV.getDocument()))
 				checkHopLeSDT(sdt);
+			else if(src.equals(textFieldTaiKhoan.getDocument()))
+				checkHopLeTaiKhoan(tk);
+			else if(src.equals(textFieldMatKhau.getDocument())) {
+				checkHopLeMatKhau(mk);
+			}else if(src.equals(textFieldNamVaoLam.getDocument())) {
+				String ngaysinh = comboBoxNgaySinh.getSelectedItem()+"";
+				String thangSinh = comboBoxThangSinh.getSelectedItem()+"";
+				checkNamVaoLamHopLe(ngaysinh,thangSinh,namVaoLam);
+			}else if(src.equals(textFieldNamSinh.getDocument())) {				
+				String ngay = comboBoxNgayVaoLam.getSelectedItem()+"";
+				String thang = comboBoxThangVaoLam.getSelectedItem()+"";
+				checkNamSinhHopLe(ngay, thang, ns);
+			}
+		}
+		
+		if(src.equals(textField_LocMaNV.getDocument())) {
+			modelTable.setRowCount(0);
+			for (NhanVien a : listFilter) {
+				if(a.getMa().toUpperCase().contains(textField_LocMaNV.getText())) {
+					DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+					modelTable.addRow(new Object[] {
+							a.getMa().toUpperCase(),
+							a.getTen().toUpperCase(),
+							a.getMaPB().toUpperCase(),
+							a.getMaQL().toUpperCase(),
+							df.format(a.getNgayVaoLam()),
+							df.format(a.getNgaySinh()),
+							a.getGioiTinh().toUpperCase(),
+							a.getLuongCB()+"",
+							a.getDienThoai(),
+							a.getEmail(),
+							a.getCccd(),
+							a.getUser(),
+							a.getPass()
+					});
+				}
+			}
+			if(textField_LocMaNV.getText().equals(""))
+				updateTable();
+		}else if(src.equals(textFieldLocTenNV.getDocument())) {
+			modelTable.setRowCount(0);
+			for (NhanVien a : listFilter) {
+				if(a.getTen().toUpperCase().contains(textFieldLocTenNV.getText().toUpperCase())) {
+					DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+					modelTable.addRow(new Object[] {
+							a.getMa().toUpperCase(),
+							a.getTen().toUpperCase(),
+							a.getMaPB().toUpperCase(),
+							a.getMaQL().toUpperCase(),
+							df.format(a.getNgayVaoLam()),
+							df.format(a.getNgaySinh()),
+							a.getGioiTinh().toUpperCase(),
+							a.getLuongCB()+"",
+							a.getDienThoai(),
+							a.getEmail(),
+							a.getCccd(),
+							a.getUser(),
+							a.getPass()
+					});
+				}
+			}
+			if(textFieldLocTenNV.getText().equals(""))
+				updateTable();
+		}
+		
+	}
+
+	private void checkNamSinhHopLe(String ngay, String thang, String nam) {
+		if(nam.matches("[0-9]{4}")) {
+			int n = Integer.parseInt(nam);
+			if(n>= 1950 && n <= 2023) {
+				lblMessNSNV.setText("");
+			}else
+				lblMessNSNV.setText("Sai mốc thời gian !");
+		}else
+			lblMessNSNV.setText("Là dãy từ 0-9 !");
+		
+	}
+
+	private void checkNamVaoLamHopLe(String ngay, String thang, String namVaoLam) {
+		if(namVaoLam.matches("[0-9]{4}")) {
+			int n = Integer.parseInt(namVaoLam);
+			if(n>= 1950 && n <= 2023) {
+				lblMessNgayVaoLam.setText("");
+			}else
+				lblMessNgayVaoLam.setText("Sai mốc thời gian !");
+		}else
+			lblMessNgayVaoLam.setText("Là 1 năm gồm 4 chữ số !");
+	}
+
+	private void checkHopLeMatKhau(String mk) {
+		if(mk.length()<4)
+			lblMessTaiKhoan.setText("Độ dài quá nhỏ !");
+		else {
+			if(mk.matches("[A-Za-z0-9]+"))
+				lblMessTaiKhoan.setText("");
+			else
+				lblMessTaiKhoan.setText("Có thể chứa chữ hoa, thường và số !");
+		}
+	}
+
+	private void checkHopLeTaiKhoan(String tk) {
+		if(tk.length()<4)
+			lblMessTaiKhoan.setText("Độ dài quá nhỏ !");
+		else {
+			if(tk.matches("[A-Za-z0-9]+"))
+				lblMessTaiKhoan.setText("");
+			else
+				lblMessTaiKhoan.setText("Có thể chứa chữ hoa, thường và số !");
 		}
 		
 	}
@@ -903,15 +1145,14 @@ public class JPanelNhanVien extends JPanel implements DocumentListener, MouseLis
 			lblMessSDT.setText("Chưa đúng định dạng !");
 	}
 
-	private void checkHopLeDC(String diachi) {
-		if(diachi.length() > 2) 
-			if(diachi.contains(" "))
-				lblMessDiaChi.setText("");
-			else 
-				lblMessDiaChi.setText("VD: AN PHÚ !");
+	private void checkHopLeLuong(String luong) {
+		if(luong.matches("\\d+")) 
+			if(Integer.parseInt(luong) < 1000000)
+				lblMessLuong.setText("Lương quá nhỏ !");
+			else
+				lblMessLuong.setText("");
 		else 
-			lblMessDiaChi.setText("Chưa đúng định dạng !");
-		
+			lblMessLuong.setText("Chưa đúng định dạng !");
 	}
 
 	private void checkHopLeCCCD(String cccd) {
@@ -946,7 +1187,7 @@ public class JPanelNhanVien extends JPanel implements DocumentListener, MouseLis
 	}
 
 	private void checkHopleMaNV(String maNV) {
-		if(maNV.length() > 2) 
+		if(maNV.length() > 2)
 			if(!checkContainsNV(maNV))
 				if(maNV.toUpperCase().matches("NV\\d+")) 
 					lblMessMaNV.setText("");
@@ -966,36 +1207,15 @@ public class JPanelNhanVien extends JPanel implements DocumentListener, MouseLis
 		}
 		return false;
 	}
-	public void disableField(boolean choose) {
-		textFieldMaNV.setEnabled(choose);
-		ccbQL_Input.setEnabled(choose);
-		ccbPB_Input.setEnabled(choose);
-		textFieldTenNV.setEnabled(choose);
-		textFieldCCCD.setEnabled(choose);
-		textFieldEmailNV.setEnabled(choose);
-		textFieldSDTNV.setEnabled(choose);
-		textFieldDCNV.setEnabled(choose);
-		
-		comboBoxNgaySinh.setEnabled(choose);
-		comboBoxThangSinh.setEnabled(choose);
-		textFieldNamSinh.setEnabled(choose);
-		
-		comboBoxNgayVaoLam.setEnabled(choose);
-		comboBoxThangVaoLam.setEnabled(choose);
-		textFieldNamVaoLam.setEnabled(choose);
-		
-		buttonNam.setEnabled(choose);
-		buttonNu.setEnabled(choose);
-	}
 	
 	public NhanVien showTableToField() {
-		disableField(false);
+		xoaTrang();
 		DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
 		NhanVien a = new NhanVien();
 		int n = table.getSelectedRow();
 		if(n >= 0)
 				try {
-
+					jTextFieldEnable(false);
 					String ngayVaoLam = comboBoxNgayVaoLam.getSelectedItem()+"-"+comboBoxThangVaoLam.getSelectedItem()+"-"+textFieldNamVaoLam.getText();
 					String ngaySinh = comboBoxNgaySinh.getSelectedItem()+"-"+comboBoxThangSinh.getSelectedItem()+"-"+textFieldNamSinh.getText();
 					
@@ -1009,8 +1229,8 @@ public class JPanelNhanVien extends JPanel implements DocumentListener, MouseLis
 					a.setDienThoai(modelTable.getValueAt(n, 8)+"");
 					a.setEmail(modelTable.getValueAt(n, 9)+"");
 					a.setCccd(modelTable.getValueAt(n, 10)+"");
-					a.setUser("");
-					a.setPass("");
+					a.setUser(modelTable.getValueAt(n, 11)+"");
+					a.setPass(modelTable.getValueAt(n, 12)+"");
 					if((modelTable.getValueAt(n, 6)+"").equalsIgnoreCase("NAM"))
 						a.setGioiTinh("NAM");
 					else
@@ -1029,18 +1249,16 @@ public class JPanelNhanVien extends JPanel implements DocumentListener, MouseLis
 						textFieldCCCD.setText(a.getCccd());
 
 						String ns = df.format(a.getNgaySinh());
-						System.out.println(ns.substring(0, 2));
 						comboBoxNgaySinh.setSelectedItem(ns.substring(0, 2));
 						comboBoxThangSinh.setSelectedItem(ns.substring(3, 5));
 						textFieldNamSinh.setText(ns.substring(6, ns.length()));
 						
 						String nvl = df.format(a.getNgayVaoLam());
-						System.out.println(nvl);
 						comboBoxNgayVaoLam.setSelectedItem(nvl.substring(0, 2));
 						comboBoxThangVaoLam.setSelectedItem(nvl.substring(3, 5));
 						textFieldNamVaoLam.setText(nvl.substring(6, nvl.length()));
 
-						textFieldDCNV.setText(a.getLuongCB()+"");
+						textFieldLuong.setText(a.getLuongCB()+"");
 						textFieldSDTNV.setText(a.getDienThoai());
 						if(a.getGioiTinh().equalsIgnoreCase("nam")) {
 							buttonNam.setSelected(true);						
@@ -1048,7 +1266,8 @@ public class JPanelNhanVien extends JPanel implements DocumentListener, MouseLis
 						else {
 							buttonNu.setSelected(true);							
 						}
-						
+						textFieldTaiKhoan.setText(a.getUser());
+						textFieldMatKhau.setText(a.getPass());
 						
 						this.setVisible(true);
 					}
@@ -1061,14 +1280,199 @@ public class JPanelNhanVien extends JPanel implements DocumentListener, MouseLis
 
 	@Override
 	public void removeUpdate(DocumentEvent e) {
-		// TODO Auto-generated method stub
+		Document src = e.getDocument();
+		String maNV = textFieldMaNV.getText();
+		String ten = textFieldTenNV.getText();
+		String email = textFieldEmailNV.getText();
+		String cccd = textFieldCCCD.getText();
+		String diachi = textFieldLuong.getText();
+		String sdt = textFieldSDTNV.getText();
+		String tk = textFieldTaiKhoan.getText();
+		String mk = textFieldMatKhau.getText();
+		String namVaoLam = textFieldNamVaoLam.getText();
+		String ns = textFieldNamSinh.getText();
+		
+		
+		if(textFieldCCCD.isEnabled()) {
+
+			if(src.equals(textFieldMaNV.getDocument()))
+				if(maNV.length()>0)
+					checkHopleMaNV(maNV);
+				else
+					lblMessMaNV.setText("");
+			else if(src.equals(textFieldTenNV.getDocument()))
+				checkHopLeTenNV(ten);
+			else if(src.equals(textFieldEmailNV.getDocument())) {
+				checkHopLeEmail(email);
+			}else if(src.equals(textFieldCCCD.getDocument()))
+				checkHopLeCCCD(cccd);
+			else if(src.equals(textFieldLuong.getDocument()))
+				checkHopLeLuong(diachi);
+			else if(src.equals(textFieldSDTNV.getDocument()))
+				checkHopLeSDT(sdt);
+			else if(src.equals(textFieldTaiKhoan.getDocument()))
+				checkHopLeTaiKhoan(tk);
+			else if(src.equals(textFieldMatKhau.getDocument())) {
+				checkHopLeMatKhau(mk);
+			}else if(src.equals(textFieldNamVaoLam.getDocument())) {
+				String ngaysinh = comboBoxNgaySinh.getSelectedItem()+"";
+				String thangSinh = comboBoxThangSinh.getSelectedItem()+"";
+				checkNamVaoLamHopLe(ngaysinh,thangSinh,namVaoLam);
+			}else if(src.equals(textFieldNamSinh.getDocument())) {				
+				String ngay = comboBoxNgayVaoLam.getSelectedItem()+"";
+				String thang = comboBoxThangVaoLam.getSelectedItem()+"";
+				checkNamSinhHopLe(ngay, thang, ns);
+			}
+		}
+		
+		if(src.equals(textField_LocMaNV.getDocument())) {
+			modelTable.setRowCount(0);
+			for (NhanVien a : listFilter) {
+				if(a.getMa().toUpperCase().contains(textField_LocMaNV.getText())) {
+					DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+					modelTable.addRow(new Object[] {
+							a.getMa().toUpperCase(),
+							a.getTen().toUpperCase(),
+							a.getMaPB().toUpperCase(),
+							a.getMaQL().toUpperCase(),
+							df.format(a.getNgayVaoLam()),
+							df.format(a.getNgaySinh()),
+							a.getGioiTinh().toUpperCase(),
+							a.getLuongCB()+"",
+							a.getDienThoai(),
+							a.getEmail(),
+							a.getCccd(),
+							a.getUser(),
+							a.getPass()
+					});
+				}
+			}
+			if(textField_LocMaNV.getText().equals(""))
+				updateTable();
+		}else if(src.equals(textFieldLocTenNV.getDocument())) {
+			modelTable.setRowCount(0);
+			for (NhanVien a : listFilter) {
+				if(a.getTen().toUpperCase().contains(textFieldLocTenNV.getText().toUpperCase())) {
+					DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+					modelTable.addRow(new Object[] {
+							a.getMa().toUpperCase(),
+							a.getTen().toUpperCase(),
+							a.getMaPB().toUpperCase(),
+							a.getMaQL().toUpperCase(),
+							df.format(a.getNgayVaoLam()),
+							df.format(a.getNgaySinh()),
+							a.getGioiTinh().toUpperCase(),
+							a.getLuongCB()+"",
+							a.getDienThoai(),
+							a.getEmail(),
+							a.getCccd(),
+							a.getUser(),
+							a.getPass()
+					});
+				}
+			}
+			if(textFieldLocTenNV.getText().equals(""))
+				updateTable();
+		}
 		
 	}
 
 	@Override
 	public void changedUpdate(DocumentEvent e) {
-		// TODO Auto-generated method stub
+		Document src = e.getDocument();
+		String maNV = textFieldMaNV.getText();
+		String ten = textFieldTenNV.getText();
+		String email = textFieldEmailNV.getText();
+		String cccd = textFieldCCCD.getText();
+		String diachi = textFieldLuong.getText();
+		String sdt = textFieldSDTNV.getText();
+		String tk = textFieldTaiKhoan.getText();
+		String mk = textFieldMatKhau.getText();
+		String namVaoLam = textFieldNamVaoLam.getText();
+		String ns = textFieldNamSinh.getText();
 		
+		
+		if(textFieldCCCD.isEnabled()) {
+
+			if(src.equals(textFieldMaNV.getDocument()))
+				if(maNV.length()>0)
+					checkHopleMaNV(maNV);
+				else
+					lblMessMaNV.setText("");
+			else if(src.equals(textFieldTenNV.getDocument()))
+				checkHopLeTenNV(ten);
+			else if(src.equals(textFieldEmailNV.getDocument())) {
+				checkHopLeEmail(email);
+			}else if(src.equals(textFieldCCCD.getDocument()))
+				checkHopLeCCCD(cccd);
+			else if(src.equals(textFieldLuong.getDocument()))
+				checkHopLeLuong(diachi);
+			else if(src.equals(textFieldSDTNV.getDocument()))
+				checkHopLeSDT(sdt);
+			else if(src.equals(textFieldTaiKhoan.getDocument()))
+				checkHopLeTaiKhoan(tk);
+			else if(src.equals(textFieldMatKhau.getDocument())) {
+				checkHopLeMatKhau(mk);
+			}else if(src.equals(textFieldNamVaoLam.getDocument())) {
+				String ngaysinh = comboBoxNgaySinh.getSelectedItem()+"";
+				String thangSinh = comboBoxThangSinh.getSelectedItem()+"";
+				checkNamVaoLamHopLe(ngaysinh,thangSinh,namVaoLam);
+			}else if(src.equals(textFieldNamSinh.getDocument())) {				
+				String ngay = comboBoxNgayVaoLam.getSelectedItem()+"";
+				String thang = comboBoxThangVaoLam.getSelectedItem()+"";
+				checkNamSinhHopLe(ngay, thang, ns);
+			}
+		}
+		
+		if(src.equals(textField_LocMaNV.getDocument())) {
+			modelTable.setRowCount(0);
+			for (NhanVien a : listFilter) {
+				if(a.getMa().toUpperCase().contains(textField_LocMaNV.getText())) {
+					DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+					modelTable.addRow(new Object[] {
+							a.getMa().toUpperCase(),
+							a.getTen().toUpperCase(),
+							a.getMaPB().toUpperCase(),
+							a.getMaQL().toUpperCase(),
+							df.format(a.getNgayVaoLam()),
+							df.format(a.getNgaySinh()),
+							a.getGioiTinh().toUpperCase(),
+							a.getLuongCB()+"",
+							a.getDienThoai(),
+							a.getEmail(),
+							a.getCccd(),
+							a.getUser(),
+							a.getPass()
+					});
+				}
+			}
+			if(textField_LocMaNV.getText().equals(""))
+				updateTable();
+		}else if(src.equals(textFieldLocTenNV.getDocument())) {
+			modelTable.setRowCount(0);
+			for (NhanVien a : listFilter) {
+				if(a.getTen().toUpperCase().contains(textFieldLocTenNV.getText().toUpperCase())) {
+					DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+					modelTable.addRow(new Object[] {
+							a.getMa().toUpperCase(),
+							a.getTen().toUpperCase(),
+							a.getMaPB().toUpperCase(),
+							a.getMaQL().toUpperCase(),
+							df.format(a.getNgayVaoLam()),
+							df.format(a.getNgaySinh()),
+							a.getGioiTinh().toUpperCase(),
+							a.getLuongCB()+"",
+							a.getDienThoai(),
+							a.getEmail(),
+							a.getCccd(),
+							a.getUser(),
+							a.getPass()
+					});
+				}
+			}
+			if(textFieldLocTenNV.getText().equals(""))
+				updateTable();
+		}
 	}
 
 	@Override
@@ -1076,6 +1480,52 @@ public class JPanelNhanVien extends JPanel implements DocumentListener, MouseLis
 		Object src = e.getSource();
 		if(src.equals(table)) {
 			showTableToField();
+		}else if(btnHuyGT.equals(src))
+			updateTable();
+		else if(buttonLocNam.equals(src)) {
+			modelTable.setRowCount(0);
+			for (NhanVien a : listFilter) {
+				if(a.getGioiTinh().toUpperCase().equals("NAM")) {
+					DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+					modelTable.addRow(new Object[] {
+							a.getMa().toUpperCase(),
+							a.getTen().toUpperCase(),
+							a.getMaPB().toUpperCase(),
+							a.getMaQL().toUpperCase(),
+							df.format(a.getNgayVaoLam()),
+							df.format(a.getNgaySinh()),
+							a.getGioiTinh().toUpperCase(),
+							a.getLuongCB()+"",
+							a.getDienThoai(),
+							a.getEmail(),
+							a.getCccd(),
+							a.getUser(),
+							a.getPass()
+					});
+				}
+			}
+		}else if(buttonLocNu.equals(src)) {
+			modelTable.setRowCount(0);
+			for (NhanVien a : listFilter) {
+				if(a.getGioiTinh().toUpperCase().equals("NỮ")) {
+					DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+					modelTable.addRow(new Object[] {
+							a.getMa().toUpperCase(),
+							a.getTen().toUpperCase(),
+							a.getMaPB().toUpperCase(),
+							a.getMaQL().toUpperCase(),
+							df.format(a.getNgayVaoLam()),
+							df.format(a.getNgaySinh()),
+							a.getGioiTinh().toUpperCase(),
+							a.getLuongCB()+"",
+							a.getDienThoai(),
+							a.getEmail(),
+							a.getCccd(),
+							a.getUser(),
+							a.getPass()
+					});
+				}
+			}
 		}
 		
 	}
@@ -1101,6 +1551,65 @@ public class JPanelNhanVien extends JPanel implements DocumentListener, MouseLis
 	@Override
 	public void mouseExited(MouseEvent e) {
 		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		Object src = e.getSource();
+		if(src.equals(ccbQL_Loc)) {
+			DateFormat df= new SimpleDateFormat("dd-MM-yyyy");
+			modelTable.setRowCount(0);
+			for (NhanVien a : model) {
+				if(a.getMaQL().equalsIgnoreCase(ccbQL_Loc.getSelectedItem()+"")) {
+					modelTable.addRow(new Object[] {
+							a.getMa().toUpperCase(),
+							a.getTen().toUpperCase(),
+							a.getMaPB().toUpperCase(),
+							a.getMaQL().toUpperCase(),
+							df.format(a.getNgayVaoLam()),
+							df.format(a.getNgaySinh()),
+							a.getGioiTinh().toUpperCase(),
+							a.getLuongCB()+"",
+							a.getDienThoai(),
+							a.getEmail(),
+							a.getCccd(),
+							a.getUser(),
+							a.getPass()
+					});			
+				}
+					
+			}
+			if((ccbQL_Loc.getSelectedItem()+"").equals("")) {
+				updateTable();
+			}
+		}else if(src.equals(ccbPB_Loc)) {
+			DateFormat df= new SimpleDateFormat("dd-MM-yyyy");
+			modelTable.setRowCount(0);
+			for (NhanVien a : model) {
+				if(a.getMaPB().equalsIgnoreCase(ccbPB_Loc.getSelectedItem()+"")) {
+					modelTable.addRow(new Object[] {
+							a.getMa().toUpperCase(),
+							a.getTen().toUpperCase(),
+							a.getMaPB().toUpperCase(),
+							a.getMaQL().toUpperCase(),
+							df.format(a.getNgayVaoLam()),
+							df.format(a.getNgaySinh()),
+							a.getGioiTinh().toUpperCase(),
+							a.getLuongCB()+"",
+							a.getDienThoai(),
+							a.getEmail(),
+							a.getCccd(),
+							a.getUser(),
+							a.getPass()
+					});			
+				}
+					
+			}
+			if((ccbPB_Loc.getSelectedItem()+"").equals("")) {
+				updateTable();
+			}
+		}
 		
 	}
 }

@@ -119,10 +119,13 @@ go
 /*
 DELETE FROM LINHKIEN
 */
-insert into LinhKien values ('LK01', N'Chuột Không dây Bluetooth Silent Rapoo M650 Lucky Cat', 'CH', 'DELL', N'Cái', 300000, 400000, 100, N'Miêu tả sản phẩm')
-insert into LinhKien values ('LK02', N'Bàn Phím Có Dây Gaming MSI Vigor GK30 US', 'BPC', 'AKKO', N'Cái', 600000, 870000, 100, N'Miêu tả sản phẩm')
-insert into LinhKien values ('LK03', N'Bàn phím AKKO 3087 RF Ocean Star', 'BPC', N'E-DRA', N'Cái', 600000, 749000,100, N'Miêu tả sản phẩm')
+insert into LinhKien values ('LK01', N'Chuột Không dây Bluetooth Silent Rapoo M650 Lucky Cat', 'CH', 'DELL', N'CÁI', 300000, 400000, 100, N'Miêu tả sản phẩm')
+insert into LinhKien values ('LK02', N'Bàn Phím Có Dây Gaming MSI Vigor GK30 US', 'BPC', 'AKKO', N'CÁI', 600000, 870000, 100, N'Miêu tả sản phẩm')
+insert into LinhKien values ('LK03', N'Bàn phím AKKO 3087 RF Ocean Star', 'BPC', N'E-DRA', N'CÁI', 600000, 749000,100, N'Miêu tả sản phẩm')
 Select * FROM LinhKien
+--UPdate LinhKien
+--set SLTon = 99
+--where MaLK = 'LK01';
 go
 
 insert into PhongBan values ('KTHUAT', N'Phòng Kỹ Thuật')

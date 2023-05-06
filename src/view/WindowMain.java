@@ -353,6 +353,8 @@ public class WindowMain implements ActionListener{
 		panel_19.add(lblUserEmployee);
 		
 		JLabel lblNewLabel_5 = new JLabel("");
+		lblNewLabel_5.setFont(new Font("Tahoma", Font.BOLD, 12));
+		lblNewLabel_5.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_5.setBounds(32, 0, 183, 45);
 		panel_19.add(lblNewLabel_5);
 		lblNewLabel_5.setText(lblUserEmployee.getText());
@@ -439,7 +441,7 @@ public class WindowMain implements ActionListener{
 		panel_1.add(btnLinhKien);
 		btnLinhKien.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		
-		JButton btnHoaDon = new JButton("HÓA ĐƠN");
+		JButton btnHoaDon = new JButton("ĐƠN HÀNG");
 		btnHoaDon.setBounds(10, 64, 157, 44);
 		panel_1.add(btnHoaDon);
 		btnHoaDon.setFont(new Font("Tahoma", Font.PLAIN, 12));
@@ -449,7 +451,7 @@ public class WindowMain implements ActionListener{
 		panel_1.add(btnTrangChu);
 		btnTrangChu.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		
-		JButton btnChiTietHoaDon = new JButton("CHI TIẾT HÓA ĐƠN");
+		JButton btnChiTietHoaDon = new JButton("CHI TIẾT ĐƠN HÀNG");
 		btnChiTietHoaDon.setBounds(177, 64, 157, 44);
 		panel_1.add(btnChiTietHoaDon);
 		btnChiTietHoaDon.setFont(new Font("Tahoma", Font.PLAIN, 12));
@@ -478,7 +480,9 @@ public class WindowMain implements ActionListener{
 				CardLayout c = (CardLayout) (panelContent.getLayout());
 				panelMenu.setSize(0, height);
 				c.show(panelContent, "panelLoaiLinhKien");
+				panelMenu.setSize(width, height);
 				frmTrangChu.setVisible(true);
+				
 			}
 		});
 		btnNewButton.setBounds(678, 64, 157, 44);
@@ -494,6 +498,7 @@ public class WindowMain implements ActionListener{
 				CardLayout c = (CardLayout) (panelContent.getLayout());
 				panelMenu.setSize(0, height);
 				c.show(panelContent, "panelNhaCungCap");
+				panelMenu.setSize(width, height);
 				frmTrangChu.setVisible(true);
 			}
 		});
@@ -502,6 +507,7 @@ public class WindowMain implements ActionListener{
 				CardLayout c = (CardLayout) (panelContent.getLayout());
 				panelMenu.setSize(0, height);
 				c.show(panelContent, "panelHoaDonChiTiet");
+				panelMenu.setSize(width, height);
 				frmTrangChu.setVisible(true); 
 			}
 		});
@@ -510,6 +516,7 @@ public class WindowMain implements ActionListener{
 				CardLayout c = (CardLayout) (panelContent.getLayout());
 				panelMenu.setSize(0, height);
 				c.show(panelContent, "panelTrangChu");
+				panelMenu.setSize(width, height);
 				frmTrangChu.setVisible(true); 
 			}
 		});
@@ -518,6 +525,7 @@ public class WindowMain implements ActionListener{
 				CardLayout c = (CardLayout) (panelContent.getLayout());
 				panelMenu.setSize(0, height);
 				c.show(panelContent, "panelHoaDon");
+				panelMenu.setSize(width, height);
 				frmTrangChu.setVisible(true); 
 			}
 		});
@@ -526,6 +534,7 @@ public class WindowMain implements ActionListener{
 				CardLayout c = (CardLayout) (panelContent.getLayout());
 				panelMenu.setSize(0, height);
 				c.show(panelContent, "panelLinhKien");
+				panelMenu.setSize(width, height);
 				frmTrangChu.setVisible(true);
 			}
 		});
@@ -534,6 +543,7 @@ public class WindowMain implements ActionListener{
 				CardLayout c = (CardLayout) (panelContent.getLayout());
 				panelMenu.setSize(0, height);
 				c.show(panelContent, "panelThongKe");
+				panelMenu.setSize(width, height);
 				frmTrangChu.setVisible(true); 
 			}
 		});
@@ -542,6 +552,7 @@ public class WindowMain implements ActionListener{
 				CardLayout c = (CardLayout) (panelContent.getLayout());
 				panelMenu.setSize(0, height);
 				c.show(panelContent, "panelKhachHang");
+				panelMenu.setSize(width, height);
 				frmTrangChu.setVisible(true); 
 			}
 		});
@@ -550,6 +561,7 @@ public class WindowMain implements ActionListener{
 				CardLayout c = (CardLayout) (panelContent.getLayout());
 				panelMenu.setSize(0, height);
 				c.show(panelContent, "panelPhongBan");
+				panelMenu.setSize(width, height);
 				frmTrangChu.setVisible(true); 
 			}
 		});
@@ -558,6 +570,7 @@ public class WindowMain implements ActionListener{
 				CardLayout c = (CardLayout) (panelContent.getLayout());
 				panelMenu.setSize(0, height);
 				c.show(panelContent, "panelNhanVien");
+				panelMenu.setSize(width, height);
 				frmTrangChu.setVisible(true); 
 			}
 		});
@@ -572,17 +585,9 @@ public class WindowMain implements ActionListener{
 		lblNewLabel.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+
 				openMenu();
 
-//				panelTrangChu.setVisible(false);
-//				panelNhaCungCap.setVisible(false);
-//				panelNhanVien.setVisible(false);
-//				panelLinhKien.setVisible(false);
-//				panelLoaiLinhKien.setVisible(false);
-//				panelHoaDon.setVisible(false);
-//				panelHoaDonChiTiet.setVisible(false);
-//				panelKhachHang.setVisible(false);
-//				panelPhongBan.setVisible(false);
 			}
 			
 			private void openMenu() {
@@ -641,7 +646,7 @@ public class WindowMain implements ActionListener{
 		panelContent.add(panelHoaDon, "panelHoaDon");
 		panelHoaDon.setLayout(null);
 		
-		panelNhanVien = new JPanelNhanVien();
+		panelNhanVien = new JPanelNhanVien(searchPBTK());
 		panelContent.add(panelNhanVien, "panelNhanVien");
 		panelNhanVien.setLayout(null);
 		
@@ -665,6 +670,7 @@ public class WindowMain implements ActionListener{
 		panelContent.add(panelThongKe, "panelThongKe");
 		panelThongKe.setLayout(null);
 		
+		
 	}
 	
 	public String searchPBTK() {
@@ -682,4 +688,6 @@ public class WindowMain implements ActionListener{
 		}
 		return null;
 	}
+	
+	
 }
