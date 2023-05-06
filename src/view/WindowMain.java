@@ -269,7 +269,7 @@ public class WindowMain implements ActionListener{
 		frmTrangChu.getContentPane().setLayout(null);
 		
 		panelMenu.setBackground(new Color(192, 192, 192));
-		panelMenu.setBounds(0, 0, 1286, 1);
+		panelMenu.setBounds(0, 0, 1286, 120);
 		frmTrangChu.getContentPane().add(panelMenu);
 		panelMenu.setLayout(null);
 		

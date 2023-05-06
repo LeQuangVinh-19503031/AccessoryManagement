@@ -137,8 +137,8 @@ select * from PhongBan
 
 go
 
-insert into NhanVien values ('NV01', N'LÊ QUANG VINH', 'NSU', 'NV01', '04-21-2019', '03-17-2001', 'Nam', 6000000, '01234123', 'lea26462', '123456789', 'NVNS01', 'NVNS01')
-insert into NhanVien values ('NV02', N'PHẠM CHÍ XUÂN', 'KDOANH', 'NV01', '04-21-2019', '11-19-2001', 'Nam', 12000000, '01234123', 'chixuan123', '123456789', 'NVNS02', 'NVNS02')
+insert into NhanVien values ('NV01', N'LÊ QUANG VINH', 'NSU', 'NV01', '04-21-2019', '03-17-2001', 'NAM', 6000000, '01234123', 'lea26462', '123456789', 'NVNS01', 'NVNS01')
+insert into NhanVien values ('NV02', N'PHẠM CHÍ XUÂN', 'KDOANH', 'NV01', '04-21-2019', '11-19-2001', 'NAM', 12000000, '01234123', 'chixuan123', '123456789', 'NVNS02', 'NVNS02')
 Select * FROM NhanVien
 
 go
